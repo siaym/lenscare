@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heart, Eye, ShoppingBag, Check } from 'lucide-react';
+import { Heart, ShoppingBag, Check } from 'lucide-react';
 import type { Product } from '@/types';
 import { formatPrice, calculateDiscount, getEffectivePrice, isOnSale } from '@/lib/utils';
 import { useCart } from '@/components/cart/CartProvider';
@@ -36,7 +36,7 @@ export function ProductCard({
   const onSale = isOnSale(product);
   const discount = onSale ? calculateDiscount(product.price, product.salePrice!) : 0;
 
-  const primaryImage = product.images[0]?.url || '/placeholder.jpg';
+  const primaryImage = product.images[0]?.url || '/images/products/glasses_rectangle.jpg';
   const secondaryImage = product.images[1]?.url || primaryImage;
   const isOutOfStock = product.stock === 0 && !product.preorder;
 
@@ -77,286 +77,161 @@ export function ProductCard({
   return (
     <>
       <div
-        className="product-card-editorial"
+        className="group relative flex flex-col bg-transparent"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        style={{
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: '#FFFFFF',
-          transition: 'transform 0.25s ease',
-        }}
       >
         <Link
           href={`/products/${product.slug}`}
-          style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+          className="block no-underline text-inherit"
         >
-          {/* Image Container — Clean off-white background */}
-          <div
-            style={{
-              position: 'relative',
-              aspectRatio: '1/1',
-              backgroundColor: '#F7F5F0',
-              overflow: 'hidden',
-              borderRadius: '6px',
-            }}
-          >
-            {/* Primary Frame Image */}
+          {/* Photography Canvas — Borderless, Soft Warm Neutral */}
+          <div className="relative aspect-square w-full bg-[#F8F7F4] overflow-hidden">
+            {/* Primary Isolated Frame Image */}
             <Image
               src={primaryImage}
               alt={product.name}
               fill
               priority={priority}
-              style={{
-                objectFit: 'contain',
-                padding: '1.25rem',
-                mixBlendMode: 'multiply',
-                opacity: isHovered && secondaryImage ? 0 : 1,
-                transform: isHovered ? 'scale(1.03)' : 'scale(1)',
-                transition: 'opacity 0.35s ease, transform 0.4s ease',
-              }}
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className={`object-contain p-6 mix-blend-multiply transition-all duration-500 ease-out ${
+                isHovered && secondaryImage ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+              }`}
             />
 
-            {/* Secondary Lifestyle / Model Image (Crossfade on Hover) */}
+            {/* Secondary Lifestyle Model Image (Crossfade on Hover) */}
             {secondaryImage && (
               <Image
                 src={secondaryImage}
                 alt={`${product.name} lifestyle`}
                 fill
-                style={{
-                  objectFit: 'cover',
-                  opacity: isHovered ? 1 : 0,
-                  transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-                  transition: 'opacity 0.35s ease, transform 0.4s ease',
-                }}
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className={`object-cover transition-all duration-500 ease-out ${
+                  isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
+                }`}
               />
             )}
 
-            {/* Sale / Pre-Order Badge */}
-            <div style={{ position: 'absolute', top: '0.75rem', left: '0.75rem', zIndex: 2 }}>
+            {/* Subtle Sale / Pre-Order Badge */}
+            <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
               {onSale && (
-                <span
-                  style={{
-                    backgroundColor: '#0B1F3A',
-                    color: '#FFFFFF',
-                    fontSize: '0.6875rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.04em',
-                    padding: '0.25rem 0.5rem',
-                    borderRadius: '2px',
-                    display: 'inline-block',
-                  }}
-                >
-                  {discount}% OFF
+                <span className="px-2 py-0.5 bg-[#0A192F] text-white text-[10px] uppercase tracking-[0.14em] font-medium">
+                  {discount}% Off
                 </span>
               )}
               {product.preorder && (
-                <span
-                  style={{
-                    backgroundColor: '#CFA85B',
-                    color: '#07172B',
-                    fontSize: '0.6875rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.05em',
-                    padding: '0.25rem 0.5rem',
-                    borderRadius: '2px',
-                    display: 'inline-block',
-                  }}
-                >
-                  PRE-ORDER
+                <span className="px-2 py-0.5 bg-[#C5A880] text-[#0A192F] text-[10px] uppercase tracking-[0.14em] font-semibold">
+                  Pre-Order
                 </span>
               )}
             </div>
 
-            {/* Out of Stock Overlay */}
+            {/* Sold Out Overlay */}
             {isOutOfStock && (
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: 3,
-                }}
-              >
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#667085', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+              <div className="absolute inset-0 bg-white/70 backdrop-blur-xs flex items-center justify-center z-20">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7C8797]">
                   Sold Out
                 </span>
               </div>
             )}
 
-            {/* Floating Action Controls on Hover */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '0.75rem',
-                right: '0.75rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.375rem',
-                zIndex: 4,
-                opacity: isHovered ? 1 : 0,
-                transform: isHovered ? 'translateX(0)' : 'translateX(6px)',
-                transition: 'all 0.2s ease',
-              }}
-            >
-              {showWishlist && (
-                <button
-                  type="button"
-                  onClick={handleWishlist}
-                  aria-label={isWishlisted ? 'Remove from wishlist' : 'Save to wishlist'}
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E8E5DF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    color: isWishlisted ? '#C0392B' : '#111827',
-                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <Heart size={14} fill={isWishlisted ? 'currentColor' : 'none'} />
-                </button>
-              )}
-
-              {showQuickView && (
-                <button
-                  type="button"
-                  onClick={handleQuickView}
-                  aria-label="Quick View"
-                  title="Quick View"
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E8E5DF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    color: '#111827',
-                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <Eye size={14} />
-                </button>
-              )}
-            </div>
-
-            {/* Slide-Up "Add to Bag" bar on Hover */}
-            {showAddToCart && !isOutOfStock && (
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: '0.625rem',
-                  zIndex: 4,
-                  opacity: isHovered ? 1 : 0,
-                  transform: isHovered ? 'translateY(0)' : 'translateY(8px)',
-                  transition: 'all 0.25s ease',
-                }}
+            {/* Top Right: Wishlist Heart */}
+            {showWishlist && (
+              <button
+                type="button"
+                onClick={handleWishlist}
+                aria-label={isWishlisted ? 'Remove from wishlist' : 'Save to wishlist'}
+                className={`absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-[#0A192F] flex items-center justify-center shadow-xs transition-all duration-200 ${
+                  isWishlisted ? 'text-[#C0392B]' : 'opacity-0 group-hover:opacity-100'
+                }`}
               >
-                <button
-                  type="button"
-                  onClick={handleAddToCart}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.375rem',
-                    backgroundColor: added ? '#2D7A4F' : '#0B1F3A',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    padding: '0.625rem 1rem',
-                    borderRadius: '4px',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.04em',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 12px rgba(11, 31, 58, 0.2)',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  {added ? (
-                    <>
-                      <Check size={13} />
-                      Added ✓
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingBag size={13} />
-                      {product.preorder ? 'Pre-Order Now' : 'Add to Bag'}
-                    </>
-                  )}
-                </button>
-              </div>
+                <Heart size={14} fill={isWishlisted ? 'currentColor' : 'none'} />
+              </button>
+            )}
+
+            {/* Center Quick View Trigger (Subtle hover reveal) */}
+            {showQuickView && (
+              <button
+                type="button"
+                onClick={handleQuickView}
+                aria-label="Quick View"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 px-4 py-2 bg-white/95 hover:bg-white text-[#0A192F] text-[10px] uppercase tracking-[0.18em] font-medium shadow-md opacity-0 group-hover:opacity-100 transition-all duration-200"
+              >
+                Quick View
+              </button>
+            )}
+
+            {/* Slide-Up "Add to Bag" Bottom Action */}
+            {showAddToCart && !isOutOfStock && (
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className={`absolute bottom-0 inset-x-0 z-20 h-10 bg-[#0A192F] hover:bg-[#162E52] text-white text-[11px] uppercase tracking-[0.18em] font-medium flex items-center justify-center gap-2 transition-transform duration-300 ease-out ${
+                  isHovered || added ? 'translate-y-0' : 'translate-y-full'
+                }`}
+              >
+                {added ? (
+                  <>
+                    <Check size={13} className="text-[#C5A880]" />
+                    <span>Added to Bag</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag size={13} />
+                    <span>Add to Bag</span>
+                  </>
+                )}
+              </button>
             )}
           </div>
 
-          {/* Clean Typography Body — Fashion Retailer Hierarchy */}
-          <div style={{ paddingTop: '0.875rem' }}>
-            {product.brand && (
-              <span
-                style={{
-                  display: 'block',
-                  fontSize: '0.6875rem',
-                  fontWeight: 600,
-                  color: '#667085',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  marginBottom: '0.25rem',
-                }}
-              >
-                {product.brand.name}
-              </span>
-            )}
+          {/* Minimalist Editorial Typography Below Image */}
+          <div className="pt-3.5 pb-1 flex flex-col gap-1">
+            {/* Brand in subtle uppercase tracking */}
+            <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#8C95A3]">
+              {product.brand?.name || 'LensCare'}
+            </span>
 
-            <h3
-              style={{
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: '#111827',
-                lineHeight: 1.35,
-                marginBottom: '0.375rem',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
+            {/* Product Name */}
+            <h3 className="text-sm font-normal text-[#0A192F] group-hover:text-[#C5A880] transition-colors leading-snug line-clamp-1">
               {product.name}
             </h3>
 
-            {/* Price Line */}
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-              <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0B1F3A' }}>
+            {/* Price */}
+            <div className="flex items-center gap-2.5 pt-0.5">
+              <span className="text-sm font-semibold text-[#0A192F]">
                 {formatPrice(effectivePrice)}
               </span>
               {onSale && (
-                <span style={{ fontSize: '0.75rem', color: '#9CA3AF', textDecoration: 'line-through' }}>
+                <span className="text-xs text-[#8C95A3] line-through font-normal">
                   {formatPrice(product.price)}
                 </span>
               )}
             </div>
+
+            {/* Color Swatch Dots */}
+            {product.variants && product.variants.length > 1 && (
+              <div className="flex items-center gap-1.5 pt-1.5">
+                {product.variants.slice(0, 4).map((v) => (
+                  <span
+                    key={v.id}
+                    title={v.color}
+                    className="w-2.5 h-2.5 rounded-full border border-black/10 inline-block"
+                    style={{ backgroundColor: v.colorCode || '#1A1A1A' }}
+                  />
+                ))}
+                {product.variants.length > 4 && (
+                  <span className="text-[9px] text-[#8C95A3] font-medium">
+                    +{product.variants.length - 4}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </Link>
       </div>
 
-      {/* Quick View Modal */}
+      {/* Centered Modal Portal */}
       <QuickViewModal
         product={product}
         isOpen={quickViewOpen}

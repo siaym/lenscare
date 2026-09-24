@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { Brand } from '@/types';
@@ -11,141 +10,62 @@ interface BrandsSectionProps {
 
 export function BrandsSection({ brands }: BrandsSectionProps) {
   return (
-    <section style={{ backgroundColor: '#F7F5F0', padding: '4.5rem 0' }} aria-labelledby="brands-heading">
-      <div className="container" style={{ padding: '0 1.25rem' }}>
+    <section className="bg-white py-20 lg:py-28 border-b border-[#EBE8E0]" aria-labelledby="brands-heading">
+      <div className="container mx-auto px-5 lg:px-12">
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <p
-            style={{
-              fontSize: '0.8125rem',
-              fontWeight: 700,
-              color: '#CFA85B',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              marginBottom: '0.5rem',
-            }}
-          >
-            OUR BRANDS
-          </p>
-          <h2
-            id="brands-heading"
-            style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2.125rem)',
-              fontWeight: 600,
-              color: '#0B1F3A',
-              letterSpacing: '-0.02em',
-              marginBottom: '0.5rem',
-            }}
-          >
-            The names behind your everyday vision.
-          </h2>
-          <p style={{ color: '#667085', fontSize: '0.9375rem', margin: 0 }}>
-            Curated precision eyewear crafted by verified international houses.
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="w-5 h-[1px] bg-[#C5A880]" />
+              <span className="text-[11px] uppercase tracking-[0.22em] font-medium text-[#7C8797]">
+                Our Brands
+              </span>
+            </div>
+            <h2 id="brands-heading" className="font-serif text-3xl md:text-5xl font-light text-[#0A192F] tracking-tight">
+              The Names Behind <br />
+              <span className="italic font-normal">Your Vision.</span>
+            </h2>
+          </div>
+          <p className="text-sm text-[#4A5568] max-w-xs font-normal">
+            Precision optical houses sourced from certified manufacturers in Japan, Italy, Germany, France, and Korea.
           </p>
         </div>
 
-        {/* Editorial Wordmark Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
-            gap: '2rem 1.5rem',
-            textAlign: 'center',
-          }}
-        >
-          {brands.map((brand, i) => (
-            <motion.div
+        {/* Minimalist Editorial Wordmark Wall */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10 border-t border-[#EBE8E0] pt-12">
+          {brands.map((brand) => (
+            <Link
               key={brand.id}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
+              href={`/brands/${brand.slug}`}
+              className="group flex flex-col items-start no-underline text-inherit"
             >
-              <Link
-                href={`/brands/${brand.slug}`}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  padding: '1.25rem 1rem',
-                  borderRadius: '6px',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E8E5DF',
-                  transition: 'all 0.2s ease',
-                }}
-                className="brand-editorial-card"
-              >
-                {/* Brand Wordmark Styling */}
-                <span
-                  style={{
-                    fontSize: '1.25rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.04em',
-                    color: '#0B1F3A',
-                    marginBottom: '0.5rem',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {brand.name}
-                </span>
+              {/* Brand Wordmark */}
+              <span className="font-serif text-2xl lg:text-3xl text-[#0A192F] group-hover:text-[#C5A880] transition-colors duration-200 tracking-tight font-light mb-3">
+                {brand.name}
+              </span>
 
-                <div
-                  style={{
-                    width: '36px',
-                    height: '2px',
-                    backgroundColor: '#CFA85B',
-                    marginBottom: '0.5rem',
-                    transition: 'width 0.2s ease',
-                  }}
-                  className="brand-divider"
-                />
+              {/* Minimal Line Divider */}
+              <div className="w-12 h-[1px] bg-[#D8D4CA] group-hover:w-full group-hover:bg-[#C5A880] transition-all duration-300 mb-2" />
 
-                <span
-                  style={{
-                    fontSize: '0.75rem',
-                    color: '#667085',
-                    fontWeight: 500,
-                    letterSpacing: '0.02em',
-                  }}
-                >
-                  {brand.country}
-                </span>
-              </Link>
-            </motion.div>
+              {/* Country */}
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#7C8797] group-hover:text-[#0A192F] transition-colors">
+                {brand.country}
+              </span>
+            </Link>
           ))}
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+        {/* Directory Link */}
+        <div className="mt-14 pt-8 border-t border-[#EBE8E0] flex justify-end">
           <Link
             href="/brands"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.375rem',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              color: '#0B1F3A',
-              textDecoration: 'none',
-              padding: '0.5rem 1rem',
-            }}
+            className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] font-medium text-[#0A192F] hover:text-[#C5A880] transition-colors"
           >
-            Explore Brand Directory <ArrowRight size={14} />
+            <span>Explore Complete Brand Directory</span>
+            <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>
-
-      <style jsx global>{`
-        .brand-editorial-card:hover {
-          border-color: #0B1F3A !important;
-          transform: translateY(-3px);
-          box-shadow: 0 10px 25px rgba(11, 31, 58, 0.08);
-        }
-        .brand-editorial-card:hover .brand-divider {
-          width: 54px !important;
-        }
-      `}</style>
     </section>
   );
 }

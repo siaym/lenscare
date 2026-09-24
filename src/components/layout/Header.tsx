@@ -13,13 +13,10 @@ import {
   Truck,
   ChevronDown,
   Heart,
-  ArrowRight,
-  ShieldCheck,
 } from 'lucide-react';
 import { useCart } from '@/components/cart/CartProvider';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { SearchModal } from '@/components/search/SearchModal';
-import { BRANDS } from '@/lib/data/mockData';
 
 export function Header() {
   const pathname = usePathname();
@@ -57,62 +54,31 @@ export function Header() {
   return (
     <>
       {/* Top Utility Announcement Bar */}
-      <div
-        style={{
-          backgroundColor: '#07172B',
-          color: '#FFFFFF',
-          fontSize: '0.75rem',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        }}
-      >
-        <div
-          className="container"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            height: '34px',
-            padding: '0 1.25rem',
-          }}
-        >
+      <div className="bg-[#07172B] text-white text-[11px] border-b border-white/10 font-normal">
+        <div className="container mx-auto px-5 lg:px-12 flex items-center justify-between h-[34px]">
           {/* Left: Free delivery proposition */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#E5E7EB' }}>
-            <Truck size={13} style={{ color: '#CFA85B' }} />
-            <span>Free delivery on orders over ৳5,000 across Bangladesh</span>
+          <div className="flex items-center gap-2 text-[#E2E8F0]">
+            <Truck size={12} className="text-[#C5A880]" />
+            <span>Complimentary nationwide delivery on orders over ৳5,000</span>
           </div>
 
           {/* Right: Service Links */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <div className="hidden sm:flex items-center gap-5 text-[#CBD5E1]">
             <Link
               href="/track-order"
-              style={{
-                color: '#E5E7EB',
-                textDecoration: 'none',
-                transition: 'color 0.15s ease',
-              }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = '#CFA85B')}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = '#E5E7EB')}
+              className="hover:text-[#C5A880] transition-colors"
             >
               Track Order
             </Link>
 
-            <span style={{ color: 'rgba(255, 255, 255, 0.2)' }}>|</span>
+            <span className="text-white/20">|</span>
 
             <a
               href="tel:+8801700000000"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.375rem',
-                color: '#E5E7EB',
-                textDecoration: 'none',
-                transition: 'color 0.15s ease',
-              }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = '#CFA85B')}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = '#E5E7EB')}
+              className="flex items-center gap-1.5 hover:text-[#C5A880] transition-colors"
             >
-              <Phone size={11} style={{ color: '#CFA85B' }} />
-              <span>Help: +880 1700-000000</span>
+              <Phone size={11} className="text-[#C5A880]" />
+              <span>Lab Support: +880 1700-000000</span>
             </a>
           </div>
         </div>
@@ -120,48 +86,19 @@ export function Header() {
 
       {/* Main Navigation Header */}
       <header
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          backgroundColor: '#FFFFFF',
-          borderBottom: '1px solid #E8E5DF',
-          boxShadow: isScrolled ? '0 4px 20px rgba(11, 31, 58, 0.08)' : 'none',
-          transition: 'box-shadow 0.2s ease',
-        }}
+        className={`sticky top-0 z-50 bg-white border-b border-[#EBE8E0] transition-shadow duration-300 ${
+          isScrolled ? 'shadow-sm' : ''
+        }`}
       >
-        <div className="container" style={{ padding: '0 1.25rem' }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              height: '66px',
-            }}
-          >
+        <div className="container mx-auto px-5 lg:px-12">
+          <div className="flex items-center justify-between h-[64px]">
             {/* Logo */}
             <Link
               href="/"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.625rem',
-                textDecoration: 'none',
-                flexShrink: 0,
-              }}
+              className="flex items-center gap-2.5 text-inherit no-underline shrink-0"
             >
-              <div
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  backgroundColor: '#0B1F3A',
-                  borderRadius: '4px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <svg width="20" height="10" viewBox="0 0 22 12" fill="none">
+              <div className="w-7 h-7 bg-[#0A192F] flex items-center justify-center">
+                <svg width="18" height="9" viewBox="0 0 22 12" fill="none">
                   <circle cx="5.5" cy="6" r="4.5" stroke="#FFFFFF" strokeWidth="1.5" />
                   <circle cx="16.5" cy="6" r="4.5" stroke="#FFFFFF" strokeWidth="1.5" />
                   <line x1="10" y1="6" x2="12" y2="6" stroke="#FFFFFF" strokeWidth="1.5" />
@@ -169,347 +106,198 @@ export function Header() {
                   <line x1="21" y1="6" x2="21" y2="4" stroke="#FFFFFF" strokeWidth="1.5" />
                 </svg>
               </div>
-              <span
-                style={{
-                  fontSize: '1.25rem',
-                  fontWeight: 700,
-                  color: '#0B1F3A',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                Lens<span style={{ color: '#CFA85B' }}>Care</span>
+              <span className="font-serif text-2xl tracking-[0.12em] font-light text-[#0A192F] uppercase">
+                Lens<span className="font-normal text-[#C5A880]">Care</span>
               </span>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav
-              className="hidden-mobile"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.25rem',
-                height: '100%',
-              }}
-            >
+            <nav className="hidden lg:flex items-center gap-1 h-full">
               {/* Eyeglasses with Visual Mega Menu */}
               <div
-                style={{ height: '100%', display: 'flex', alignItems: 'center', position: 'relative' }}
+                className="h-full flex items-center relative"
                 onMouseEnter={() => handleDropdownEnter('eyeglasses')}
                 onMouseLeave={handleDropdownLeave}
               >
                 <Link
                   href="/eyeglasses"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.25rem',
-                    padding: '0 0.875rem',
-                    height: '100%',
-                    fontSize: '0.875rem',
-                    fontWeight: isActive('/eyeglasses') ? 600 : 500,
-                    color: isActive('/eyeglasses') ? '#0B1F3A' : '#374151',
-                    textDecoration: 'none',
-                    borderBottom: isActive('/eyeglasses') ? '2px solid #CFA85B' : '2px solid transparent',
-                  }}
+                  className={`flex items-center gap-1 px-4 h-full text-xs uppercase tracking-[0.16em] font-medium transition-colors ${
+                    isActive('/eyeglasses')
+                      ? 'text-[#0A192F] border-b-2 border-[#C5A880]'
+                      : 'text-[#4A5568] hover:text-[#0A192F]'
+                  }`}
                 >
-                  Eyeglasses
-                  <ChevronDown size={13} style={{ opacity: 0.6 }} />
+                  <span>Eyeglasses</span>
+                  <ChevronDown size={12} className="opacity-50" />
                 </Link>
 
                 {activeDropdown === 'eyeglasses' && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '100%',
-                      left: '-2rem',
-                      width: '620px',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E8E5DF',
-                      borderRadius: '0 0 8px 8px',
-                      boxShadow: '0 20px 40px -10px rgba(11, 31, 58, 0.15)',
-                      padding: '1.75rem',
-                      display: 'grid',
-                      gridTemplateColumns: '1.3fr 1.3fr 1.4fr',
-                      gap: '1.5rem',
-                      zIndex: 200,
-                    }}
-                  >
+                  <div className="absolute top-full left-0 w-[640px] bg-white border border-[#EBE8E0] shadow-xl p-7 grid grid-cols-12 gap-6 z-50">
                     {/* Col 1: Shop by Shape */}
-                    <div>
-                      <p style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>
-                        Shop by Shape
+                    <div className="col-span-5">
+                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] mb-3">
+                        Shop by Silhouette
                       </p>
-                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        {['Rectangle', 'Round', 'Cat Eye', 'Aviator', 'Geometric', 'Square', 'Clubmaster'].map((shape) => (
-                          <li key={shape}>
+                      <ul className="space-y-2 text-xs">
+                        {[
+                          { name: 'Classic Rectangle', slug: 'rectangle' },
+                          { name: 'Minimal Round', slug: 'round' },
+                          { name: 'Feminine Cat Eye', slug: 'cat-eye' },
+                          { name: 'Modern Aviator', slug: 'aviator' },
+                          { name: 'Geometric Rims', slug: 'geometric' },
+                          { name: 'Architectural Square', slug: 'square' },
+                          { name: 'Vintage Clubmaster', slug: 'clubmaster' },
+                        ].map((item) => (
+                          <li key={item.slug}>
                             <Link
-                              href={`/eyeglasses?shape=${shape.toLowerCase().replace(' ', '-')}`}
-                              style={{ fontSize: '0.8125rem', color: '#374151', textDecoration: 'none', display: 'block', transition: 'color 0.15s ease' }}
-                              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = '#0B1F3A')}
-                              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = '#374151')}
+                              href={`/eyeglasses?shape=${item.slug}`}
+                              className="text-[#4A5568] hover:text-[#0A192F] hover:translate-x-0.5 transition-all block"
                             >
-                              {shape}
+                              {item.name}
                             </Link>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    {/* Col 2: Shop by Type */}
-                    <div>
-                      <p style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>
-                        Shop by Type
+                    {/* Col 2: Shop by Lens Need */}
+                    <div className="col-span-4">
+                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] mb-3">
+                        Optical Solutions
                       </p>
-                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                      <ul className="space-y-2 text-xs">
                         <li>
-                          <Link href="/eyeglasses?rx=true" style={{ fontSize: '0.8125rem', color: '#374151', textDecoration: 'none', fontWeight: 600 }}>
-                            Prescription Ready
+                          <Link href="/eyeglasses" className="text-[#4A5568] hover:text-[#0A192F] block">
+                            Single Vision Optics
                           </Link>
                         </li>
                         <li>
-                          <Link href="/eyeglasses?q=blue" style={{ fontSize: '0.8125rem', color: '#374151', textDecoration: 'none' }}>
-                            Blue Light / Computer
+                          <Link href="/eyeglasses" className="text-[#4A5568] hover:text-[#0A192F] block">
+                            Blue Light Defense
                           </Link>
                         </li>
                         <li>
-                          <Link href="/eyeglasses?material=TITANIUM" style={{ fontSize: '0.8125rem', color: '#374151', textDecoration: 'none' }}>
-                            Japanese Titanium
+                          <Link href="/eyeglasses" className="text-[#4A5568] hover:text-[#0A192F] block">
+                            Progressive Corridors
                           </Link>
                         </li>
                         <li>
-                          <Link href="/eyeglasses?material=ACETATE" style={{ fontSize: '0.8125rem', color: '#374151', textDecoration: 'none' }}>
-                            Italian Acetate
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/eyeglasses?material=TR90" style={{ fontSize: '0.8125rem', color: '#374151', textDecoration: 'none' }}>
-                            Ultra-light TR90
+                          <Link href="/eyeglasses" className="text-[#4A5568] hover:text-[#0A192F] block">
+                            High-Index (1.67 / 1.74)
                           </Link>
                         </li>
                       </ul>
                     </div>
 
-                    {/* Col 3: Editorial Feature */}
-                    <div style={{ backgroundColor: '#F7F5F0', padding: '1rem', borderRadius: '4px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    {/* Col 3: Visual Editorial Card */}
+                    <div className="col-span-3 bg-[#F8F7F4] p-4 flex flex-col justify-between border border-[#EFECE6]">
                       <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginBottom: '0.5rem' }}>
-                          <ShieldCheck size={14} color="#CFA85B" />
-                          <span style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.05em', color: '#0B1F3A', textTransform: 'uppercase' }}>Optical Lab Guarantee</span>
-                        </div>
-                        <p style={{ fontSize: '0.75rem', color: '#667085', lineHeight: 1.4, margin: 0 }}>
-                          Custom precision lens cutting & power fitting by certified optical specialists.
-                        </p>
+                        <span className="text-[9px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] block mb-1">
+                          Dhaka Lab
+                        </span>
+                        <h4 className="font-serif text-sm font-light text-[#0A192F] leading-snug mb-2">
+                          Precision Edged to Your PD.
+                        </h4>
                       </div>
-
                       <Link
                         href="/eyeglasses"
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.375rem',
-                          fontSize: '0.8125rem',
-                          fontWeight: 700,
-                          color: '#0B1F3A',
-                          textDecoration: 'none',
-                          marginTop: '1rem',
-                        }}
+                        className="text-[11px] font-medium text-[#0A192F] hover:text-[#C5A880] transition-colors underline underline-offset-4"
                       >
-                        Shop All Eyeglasses <ArrowRight size={13} />
+                        Explore Eyeglasses →
                       </Link>
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Sunglasses with Visual Mega Menu */}
+              {/* Sunglasses */}
               <div
-                style={{ height: '100%', display: 'flex', alignItems: 'center', position: 'relative' }}
+                className="h-full flex items-center relative"
                 onMouseEnter={() => handleDropdownEnter('sunglasses')}
                 onMouseLeave={handleDropdownLeave}
               >
                 <Link
                   href="/sunglasses"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.25rem',
-                    padding: '0 0.875rem',
-                    height: '100%',
-                    fontSize: '0.875rem',
-                    fontWeight: isActive('/sunglasses') ? 600 : 500,
-                    color: isActive('/sunglasses') ? '#0B1F3A' : '#374151',
-                    textDecoration: 'none',
-                    borderBottom: isActive('/sunglasses') ? '2px solid #CFA85B' : '2px solid transparent',
-                  }}
+                  className={`flex items-center gap-1 px-4 h-full text-xs uppercase tracking-[0.16em] font-medium transition-colors ${
+                    isActive('/sunglasses')
+                      ? 'text-[#0A192F] border-b-2 border-[#C5A880]'
+                      : 'text-[#4A5568] hover:text-[#0A192F]'
+                  }`}
                 >
-                  Sunglasses
-                  <ChevronDown size={13} style={{ opacity: 0.6 }} />
+                  <span>Sunglasses</span>
+                  <ChevronDown size={12} className="opacity-50" />
                 </Link>
 
                 {activeDropdown === 'sunglasses' && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '100%',
-                      left: '-2rem',
-                      width: '560px',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E8E5DF',
-                      borderRadius: '0 0 8px 8px',
-                      boxShadow: '0 20px 40px -10px rgba(11, 31, 58, 0.15)',
-                      padding: '1.75rem',
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1fr',
-                      gap: '1.5rem',
-                      zIndex: 200,
-                    }}
-                  >
+                  <div className="absolute top-full left-0 w-[500px] bg-white border border-[#EBE8E0] shadow-xl p-7 grid grid-cols-2 gap-6 z-50">
                     <div>
-                      <p style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>
-                        Curated Silhouettes
+                      <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] mb-3">
+                        Curated Categories
                       </p>
-                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        {['Aviator Polarized', 'Classic Wayfarer', 'Retro Round', 'Cat Eye Glam', 'Square Polarized'].map((s) => (
-                          <li key={s}>
-                            <Link
-                              href="/sunglasses"
-                              style={{ fontSize: '0.8125rem', color: '#374151', textDecoration: 'none', display: 'block' }}
-                            >
-                              {s}
-                            </Link>
-                          </li>
-                        ))}
+                      <ul className="space-y-2 text-xs">
+                        <li>
+                          <Link href="/sunglasses?shape=aviator" className="text-[#4A5568] hover:text-[#0A192F] block">
+                            Aviator Classics
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/sunglasses?shape=round" className="text-[#4A5568] hover:text-[#0A192F] block">
+                            Retro Round Sun
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/sunglasses?shape=cat-eye" className="text-[#4A5568] hover:text-[#0A192F] block">
+                            Statement Cat Eye
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/sunglasses?shape=geometric" className="text-[#4A5568] hover:text-[#0A192F] block">
+                            Geometric Wireframes
+                          </Link>
+                        </li>
                       </ul>
                     </div>
 
-                    <div style={{ backgroundColor: '#0B1F3A', color: '#FFFFFF', padding: '1.25rem', borderRadius: '4px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div className="bg-[#F8F7F4] p-4 flex flex-col justify-between border border-[#EFECE6]">
                       <div>
-                        <span style={{ fontSize: '0.6875rem', color: '#CFA85B', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                          UV400 & Polarized
+                        <span className="text-[9px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] block mb-1">
+                          Summer 2026
                         </span>
-                        <h4 style={{ fontSize: '1rem', fontWeight: 600, margin: '0.375rem 0 0.5rem 0' }}>
-                          100% Sun Glare Protection
+                        <h4 className="font-serif text-sm font-light text-[#0A192F] leading-snug mb-2">
+                          Japanese Polarized Filters.
                         </h4>
-                        <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)', margin: 0 }}>
-                          High-clarity optical lenses engineered for Bangladesh’s tropical sunlight.
-                        </p>
                       </div>
-
                       <Link
                         href="/sunglasses"
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.375rem',
-                          fontSize: '0.8125rem',
-                          fontWeight: 700,
-                          color: '#CFA85B',
-                          textDecoration: 'none',
-                          marginTop: '1rem',
-                        }}
+                        className="text-[11px] font-medium text-[#0A192F] hover:text-[#C5A880] transition-colors underline underline-offset-4"
                       >
-                        Explore Sunglasses <ArrowRight size={13} />
+                        Shop All Sunglasses →
                       </Link>
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Brands Dropdown */}
-              <div
-                style={{ height: '100%', display: 'flex', alignItems: 'center', position: 'relative' }}
-                onMouseEnter={() => handleDropdownEnter('brands')}
-                onMouseLeave={handleDropdownLeave}
+              {/* Brands */}
+              <Link
+                href="/brands"
+                className={`px-4 h-full flex items-center text-xs uppercase tracking-[0.16em] font-medium transition-colors ${
+                  isActive('/brands')
+                    ? 'text-[#0A192F] border-b-2 border-[#C5A880]'
+                    : 'text-[#4A5568] hover:text-[#0A192F]'
+                }`}
               >
-                <Link
-                  href="/brands"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.25rem',
-                    padding: '0 0.875rem',
-                    height: '100%',
-                    fontSize: '0.875rem',
-                    fontWeight: isActive('/brands') ? 600 : 500,
-                    color: isActive('/brands') ? '#0B1F3A' : '#374151',
-                    textDecoration: 'none',
-                    borderBottom: isActive('/brands') ? '2px solid #CFA85B' : '2px solid transparent',
-                  }}
-                >
-                  Brands
-                  <ChevronDown size={13} style={{ opacity: 0.6 }} />
-                </Link>
-
-                {activeDropdown === 'brands' && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '100%',
-                      left: '0',
-                      width: '240px',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E8E5DF',
-                      borderRadius: '0 0 8px 8px',
-                      boxShadow: '0 20px 40px -10px rgba(11, 31, 58, 0.15)',
-                      padding: '0.75rem',
-                      zIndex: 200,
-                    }}
-                  >
-                    {BRANDS.slice(0, 6).map((b) => (
-                      <Link
-                        key={b.id}
-                        href={`/brands/${b.slug}`}
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          padding: '0.5rem 0.75rem',
-                          fontSize: '0.8125rem',
-                          color: '#374151',
-                          textDecoration: 'none',
-                          borderRadius: '4px',
-                        }}
-                        onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = '#F7F5F0')}
-                        onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = 'transparent')}
-                      >
-                        <span style={{ fontWeight: 600 }}>{b.name}</span>
-                        <span style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>{b.country}</span>
-                      </Link>
-                    ))}
-                    <div style={{ borderTop: '1px solid #F2EFEA', marginTop: '0.5rem', paddingTop: '0.5rem' }}>
-                      <Link
-                        href="/brands"
-                        style={{
-                          display: 'block',
-                          textAlign: 'center',
-                          fontSize: '0.75rem',
-                          fontWeight: 700,
-                          color: '#0B1F3A',
-                          textDecoration: 'none',
-                          padding: '0.375rem',
-                        }}
-                      >
-                        View All Brands →
-                      </Link>
-                    </div>
-                  </div>
-                )}
-              </div>
+                Brands
+              </Link>
 
               {/* Pre-Order */}
               <Link
                 href="/pre-order"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '0 0.875rem',
-                  height: '100%',
-                  fontSize: '0.875rem',
-                  fontWeight: isActive('/pre-order') ? 600 : 500,
-                  color: isActive('/pre-order') ? '#0B1F3A' : '#374151',
-                  textDecoration: 'none',
-                  borderBottom: isActive('/pre-order') ? '2px solid #CFA85B' : '2px solid transparent',
-                }}
+                className={`px-4 h-full flex items-center text-xs uppercase tracking-[0.16em] font-medium transition-colors ${
+                  isActive('/pre-order')
+                    ? 'text-[#0A192F] border-b-2 border-[#C5A880]'
+                    : 'text-[#4A5568] hover:text-[#0A192F]'
+                }`}
               >
                 Pre-Order
               </Link>
@@ -517,212 +305,107 @@ export function Header() {
               {/* Shop All */}
               <Link
                 href="/shop"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '0 0.875rem',
-                  height: '100%',
-                  fontSize: '0.875rem',
-                  fontWeight: isActive('/shop') ? 600 : 500,
-                  color: isActive('/shop') ? '#0B1F3A' : '#374151',
-                  textDecoration: 'none',
-                  borderBottom: isActive('/shop') ? '2px solid #CFA85B' : '2px solid transparent',
-                }}
+                className={`px-4 h-full flex items-center text-xs uppercase tracking-[0.16em] font-medium transition-colors ${
+                  isActive('/shop') && !isActive('/eyeglasses') && !isActive('/sunglasses')
+                    ? 'text-[#0A192F] border-b-2 border-[#C5A880]'
+                    : 'text-[#4A5568] hover:text-[#0A192F]'
+                }`}
               >
-                Shop All
+                Catalog
               </Link>
             </nav>
 
-            {/* Right Action Icons: Search, Wishlist, Account, Cart */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              {/* Search Trigger */}
+            {/* Right Action Icons */}
+            <div className="flex items-center gap-3">
+              {/* Search Modal Trigger */}
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                aria-label="Search catalog"
-                style={{
-                  width: '38px',
-                  height: '38px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: 'none',
-                  background: 'none',
-                  cursor: 'pointer',
-                  color: '#111827',
-                  borderRadius: '50%',
-                  transition: 'background 0.15s ease',
-                }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = '#F7F5F0')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = 'transparent')}
+                aria-label="Search Catalog"
+                className="w-9 h-9 flex items-center justify-center text-[#0A192F] hover:text-[#C5A880] transition-colors"
               >
                 <Search size={18} />
               </button>
 
-              {/* Wishlist Link */}
-              <Link
-                href="/account/wishlist"
-                className="hidden-mobile"
-                aria-label="Wishlist"
-                style={{
-                  width: '38px',
-                  height: '38px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#111827',
-                  textDecoration: 'none',
-                  borderRadius: '50%',
-                  transition: 'background 0.15s ease',
-                }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = '#F7F5F0')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = 'transparent')}
-              >
-                <Heart size={18} />
-              </Link>
-
-              {/* Customer Account */}
+              {/* Account Link */}
               <Link
                 href="/account"
-                className="hidden-mobile"
-                aria-label="Customer Account"
-                style={{
-                  width: '38px',
-                  height: '38px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#111827',
-                  textDecoration: 'none',
-                  borderRadius: '50%',
-                  transition: 'background 0.15s ease',
-                }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = '#F7F5F0')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = 'transparent')}
+                aria-label="Account Portal"
+                className="w-9 h-9 flex items-center justify-center text-[#0A192F] hover:text-[#C5A880] transition-colors"
               >
                 <User size={18} />
               </Link>
 
-              {/* Shopping Bag Button with Live Counter Badge */}
+              {/* Wishlist Link */}
+              <Link
+                href="/account/wishlist"
+                aria-label="Saved Wishlist"
+                className="w-9 h-9 flex items-center justify-center text-[#0A192F] hover:text-[#C5A880] transition-colors"
+              >
+                <Heart size={18} />
+              </Link>
+
+              {/* Bag Trigger */}
               <button
                 type="button"
                 onClick={() => setCartOpen(true)}
-                aria-label={`Shopping Bag (${itemCount} items)`}
-                style={{
-                  position: 'relative',
-                  width: '38px',
-                  height: '38px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: 'none',
-                  background: 'none',
-                  cursor: 'pointer',
-                  color: '#111827',
-                  borderRadius: '50%',
-                  transition: 'background 0.15s ease',
-                }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = '#F7F5F0')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = 'transparent')}
+                aria-label={`Shopping Bag, ${itemCount} items`}
+                className="relative h-9 px-3 flex items-center gap-2 bg-[#0A192F] text-white hover:bg-[#162E52] transition-colors text-xs uppercase tracking-[0.14em] font-medium"
               >
-                <ShoppingBag size={18} />
-                {itemCount > 0 && (
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: '4px',
-                      right: '4px',
-                      minWidth: '16px',
-                      height: '16px',
-                      padding: '0 3px',
-                      backgroundColor: '#CFA85B',
-                      color: '#07172B',
-                      borderRadius: '8px',
-                      fontSize: '10px',
-                      fontWeight: 800,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      lineHeight: 1,
-                    }}
-                  >
-                    {itemCount > 9 ? '9+' : itemCount}
-                  </span>
-                )}
+                <ShoppingBag size={14} />
+                <span className="hidden sm:inline">Bag</span>
+                <span className="w-5 h-5 rounded-full bg-[#C5A880] text-[#0A192F] text-[10px] font-bold flex items-center justify-center">
+                  {itemCount}
+                </span>
               </button>
 
-              {/* Mobile Hamburger Toggle */}
+              {/* Mobile Menu Toggle */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="show-mobile"
-                aria-label="Toggle navigation menu"
-                style={{
-                  width: '38px',
-                  height: '38px',
-                  display: 'none',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: 'none',
-                  background: 'none',
-                  cursor: 'pointer',
-                  color: '#111827',
-                }}
+                aria-label="Toggle Navigation Menu"
+                className="lg:hidden w-9 h-9 flex items-center justify-center text-[#0A192F]"
               >
                 {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
+
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Slide-Down Drawer */}
         {mobileMenuOpen && (
-          <div
-            style={{
-              position: 'fixed',
-              top: '100px',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: '#FFFFFF',
-              zIndex: 150,
-              overflowY: 'auto',
-              padding: '1.5rem',
-              borderTop: '1px solid #E8E5DF',
-            }}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <Link href="/eyeglasses" style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', textDecoration: 'none', padding: '0.5rem 0' }}>
-                Eyeglasses
-              </Link>
-              <Link href="/sunglasses" style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', textDecoration: 'none', padding: '0.5rem 0' }}>
-                Sunglasses
-              </Link>
-              <Link href="/brands" style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', textDecoration: 'none', padding: '0.5rem 0' }}>
-                Brands
-              </Link>
-              <Link href="/pre-order" style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', textDecoration: 'none', padding: '0.5rem 0' }}>
-                Pre-Order
-              </Link>
-              <Link href="/shop" style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', textDecoration: 'none', padding: '0.5rem 0' }}>
-                Shop All
-              </Link>
-
-              <div style={{ borderTop: '1px solid #E8E5DF', paddingTop: '1rem', marginTop: '0.5rem' }}>
-                <Link href="/account" style={{ display: 'block', fontSize: '0.9375rem', color: '#374151', textDecoration: 'none', padding: '0.5rem 0' }}>
-                  My Account
-                </Link>
-                <Link href="/account/wishlist" style={{ display: 'block', fontSize: '0.9375rem', color: '#374151', textDecoration: 'none', padding: '0.5rem 0' }}>
-                  Wishlist
-                </Link>
-                <Link href="/track-order" style={{ display: 'block', fontSize: '0.9375rem', color: '#374151', textDecoration: 'none', padding: '0.5rem 0' }}>
-                  Track Order
-                </Link>
-                <Link href="/admin" style={{ display: 'block', fontSize: '0.875rem', color: '#667085', textDecoration: 'none', padding: '0.5rem 0' }}>
-                  Admin Portal
-                </Link>
-              </div>
-            </div>
+          <div className="lg:hidden bg-white border-t border-[#EBE8E0] px-5 py-6 space-y-4">
+            <Link
+              href="/eyeglasses"
+              className="block text-xs uppercase tracking-[0.18em] font-medium text-[#0A192F] py-2 border-b border-[#F2EFEA]"
+            >
+              Eyeglasses
+            </Link>
+            <Link
+              href="/sunglasses"
+              className="block text-xs uppercase tracking-[0.18em] font-medium text-[#0A192F] py-2 border-b border-[#F2EFEA]"
+            >
+              Sunglasses
+            </Link>
+            <Link
+              href="/brands"
+              className="block text-xs uppercase tracking-[0.18em] font-medium text-[#0A192F] py-2 border-b border-[#F2EFEA]"
+            >
+              Brands
+            </Link>
+            <Link
+              href="/pre-order"
+              className="block text-xs uppercase tracking-[0.18em] font-medium text-[#0A192F] py-2 border-b border-[#F2EFEA]"
+            >
+              Pre-Order
+            </Link>
+            <Link
+              href="/shop"
+              className="block text-xs uppercase tracking-[0.18em] font-medium text-[#0A192F] py-2"
+            >
+              Full Catalog
+            </Link>
           </div>
         )}
       </header>

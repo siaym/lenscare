@@ -1,96 +1,56 @@
 import type { Metadata } from 'next';
 import { HeroSection } from '@/components/home/HeroSection';
-import { ProductCarouselSection } from '@/components/home/ProductCarouselSection';
+import { NewCollectionSection } from '@/components/home/NewCollectionSection';
 import { ShopByShapeSection } from '@/components/home/ShopByShapeSection';
+import { BestSellersRail } from '@/components/home/BestSellersRail';
+import { OpticalServiceSection } from '@/components/home/OpticalServiceSection';
 import { FindYourFrameSection } from '@/components/home/FindYourFrameSection';
-import { TrustSection } from '@/components/home/TrustSection';
+import { SunglassesCampaignSection } from '@/components/home/SunglassesCampaignSection';
 import { BrandsSection } from '@/components/home/BrandsSection';
-import { NewsletterSection } from '@/components/home/NewsletterSection';
 import {
   BEST_SELLERS,
-  EYEGLASSES,
-  SUNGLASSES,
   NEW_ARRIVALS,
+  SUNGLASSES,
   SHAPES,
   BRANDS,
 } from '@/lib/data/mockData';
 
 export const metadata: Metadata = {
-  title: 'LensCare — See Better. Look Better. | Premium Eyewear Bangladesh',
+  title: 'LensCare — See the Difference. | Premium Eyewear Bangladesh',
   description:
-    "Bangladesh's premium eyewear brand. Authentic prescription eyeglasses, polarized sunglasses, and optical lab precision lenses delivered nationwide.",
+    "Architectural optical eyeglasses, Japanese titanium frames, and polarized sunglasses custom fitted in Dhaka. Complimentary nationwide delivery across Bangladesh.",
 };
 
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero: See Better. Look Better. */}
+      {/* 01. Hero: Editorial Fashion Campaign */}
       <HeroSection />
 
-      {/* 2. Best Sellers: Immediate shopping priority (White) */}
-      <ProductCarouselSection
-        id="best-sellers"
-        title="Best Sellers"
-        subtitle="Our most-loved silhouettes, chosen by everyday professionals."
-        products={BEST_SELLERS}
-        viewAllHref="/shop?sort=best-selling"
-        viewAllLabel="View Best Sellers"
-        bg="#FFFFFF"
-      />
+      {/* 02. New Collection: Large Visual Product Presentation */}
+      <NewCollectionSection products={NEW_ARRIVALS} />
 
-      {/* 3. Shop by Shape: Visual Discovery (Warm Ivory #F7F5F0) */}
+      {/* 03. Shop by Shape: Visual Frame Silhouettes (Vector Signature) */}
       <ShopByShapeSection
-        title="BROWSE BY FRAME SHAPE"
-        subtitle="Find the silhouette that fits you."
         shapes={SHAPES}
         basePath="/shop"
-        bg="#F7F5F0"
+        bg="#FAF9F5"
       />
 
-      {/* 4. Prescription Eyeglasses: Core Optical Category (White) */}
-      <ProductCarouselSection
-        id="eyeglasses"
-        title="Prescription Eyeglasses"
-        subtitle="Precision frames ready for single vision, bifocal, and progressive lenses."
-        products={EYEGLASSES}
-        viewAllHref="/eyeglasses"
-        viewAllLabel="Shop All Eyeglasses"
-        bg="#FFFFFF"
-      />
+      {/* 04. Best Sellers: Compact 4-Item Product Rail */}
+      <BestSellersRail products={BEST_SELLERS} />
 
-      {/* 5. Editorial Feature: Find Your Frame Guided Fit */}
+      {/* 05. Prescription: Clinical Precision & Dhaka Optical Lab */}
+      <OpticalServiceSection />
+
+      {/* 06. Brand Story / Fit Guide: Editorial Model Split Layout */}
       <FindYourFrameSection />
 
-      {/* 6. Sunglasses: Lifestyle & Sun Protection (Subtle Warm #FAFAF8) */}
-      <ProductCarouselSection
-        id="sunglasses"
-        title="Sunglasses"
-        subtitle="Polarized optics, UV400 filtering, and refined summer silhouettes."
-        products={SUNGLASSES}
-        viewAllHref="/sunglasses"
-        viewAllLabel="Explore Sunglasses"
-        bg="#FAFAF8"
-      />
+      {/* 07. Sunglasses: Photography-Led Campaign Banner + Curated Rail */}
+      <SunglassesCampaignSection products={SUNGLASSES} />
 
-      {/* 7. New Arrivals: Fresh Inventory (White) */}
-      <ProductCarouselSection
-        id="new-arrivals"
-        title="New Arrivals"
-        subtitle="Freshly crafted styles just landed in our catalog."
-        products={NEW_ARRIVALS}
-        viewAllHref="/shop?sort=newest"
-        viewAllLabel="See New Arrivals"
-        bg="#FFFFFF"
-      />
-
-      {/* 8. Brands: Editorial Directory (Warm Ivory #F7F5F0) */}
+      {/* 08. Brands: Minimal Wordmark Wall */}
       <BrandsSection brands={BRANDS.filter((b) => b.featured)} />
-
-      {/* 9. Why LensCare: Optical Craftsmanship & Delivery Trust (White) */}
-      <TrustSection />
-
-      {/* 10. Newsletter: Retention (Deep Navy #07172B) */}
-      <NewsletterSection />
     </>
   );
 }

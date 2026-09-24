@@ -36,9 +36,9 @@ export function Footer() {
         >
           {/* Brand Intro Column */}
           <div style={{ maxWidth: '320px' }}>
-            <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '1rem' }}>
-              <span style={{ fontSize: '1.375rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
-                Lens<span style={{ color: '#CFA85B' }}>Care</span>
+            <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '1.25rem' }}>
+              <span className="font-serif text-2xl tracking-[0.14em] font-light text-white uppercase">
+                Lens<span className="font-normal text-[#C5A880]">Care</span>
               </span>
             </Link>
 

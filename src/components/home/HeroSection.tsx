@@ -3,258 +3,105 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section
-      style={{
-        position: 'relative',
-        backgroundColor: '#0B1F3A',
-        color: '#FFFFFF',
-        overflow: 'hidden',
-        padding: '4.5rem 0',
-      }}
-    >
-      {/* Subtle Ambient Radial Lighting (No tacky SaaS grid) */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '-15%',
-          right: '5%',
-          width: '550px',
-          height: '550px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(207, 168, 91, 0.12) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '-20%',
-          left: '-10%',
-          width: '500px',
-          height: '500px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(26, 53, 96, 0.4) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div className="container" style={{ position: 'relative', zIndex: 1, padding: '0 1.25rem' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '3rem',
-            alignItems: 'center',
-          }}
-          className="hero-layout"
-        >
-          {/* Left Column — Editorial Story */}
-          <div style={{ maxWidth: '540px' }}>
-            {/* Category Marker */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
+    <section className="relative bg-[#FAF9F5] text-[#0A192F] overflow-hidden border-b border-[#EBE8E0]">
+      <div className="container mx-auto px-5 lg:px-12 py-16 md:py-24 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column — Editorial Campaign Narrative */}
+          <div className="lg:col-span-7 max-w-2xl">
+            {/* Editorial Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              style={{
-                fontSize: '0.8125rem',
-                fontWeight: 700,
-                color: '#CFA85B',
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                marginBottom: '1rem',
-              }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-3 mb-6"
             >
-              PREMIUM EYEWEAR
-            </motion.p>
+              <span className="w-6 h-[1px] bg-[#C5A880]" />
+              <span className="text-[11px] uppercase tracking-[0.24em] font-medium text-[#7C8797]">
+                LensCare · Autumn / Winter 2026
+              </span>
+            </motion.div>
 
-            {/* Headline */}
+            {/* Display Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              style={{
-                fontSize: 'clamp(2.5rem, 5vw, 3.75rem)',
-                fontWeight: 700,
-                lineHeight: 1.1,
-                letterSpacing: '-0.03em',
-                marginBottom: '1.25rem',
-                color: '#FFFFFF',
-              }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="font-serif text-5xl md:text-7xl lg:text-[5.4rem] font-light leading-[1.02] tracking-tight text-[#0A192F] mb-6"
             >
-              See Better.
-              <br />
-              <span style={{ color: '#E3C783' }}>Look Better.</span>
+              See the <br />
+              <span className="italic font-normal text-[#0A192F]">Difference.</span>
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Body Copy */}
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              style={{
-                fontSize: '1.0625rem',
-                lineHeight: 1.65,
-                color: 'rgba(255, 255, 255, 0.78)',
-                marginBottom: '2rem',
-              }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-base md:text-lg text-[#4A5568] leading-relaxed font-normal max-w-lg mb-10"
             >
-              Premium frames, prescription lenses, and authentic eyewear — delivered across Bangladesh with custom optical lab precision.
+              Architectural eyewear designed around facial ergonomics. Hand-finished Japanese titanium and Italian bio-acetate frames, custom fitted with prescription optics in our Dhaka optical lab.
             </motion.p>
 
-            {/* Action Buttons */}
+            {/* Editorial Actions */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8"
             >
+              <Link
+                href="/shop"
+                className="group inline-flex items-center gap-3 px-8 py-4 bg-[#0A192F] text-white text-xs uppercase tracking-[0.18em] font-medium hover:bg-[#162E52] transition-all"
+              >
+                <span>Explore Collection</span>
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+
               <Link
                 href="/eyeglasses"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  backgroundColor: '#CFA85B',
-                  color: '#07172B',
-                  padding: '0.875rem 1.625rem',
-                  borderRadius: '4px',
-                  fontWeight: 700,
-                  fontSize: '0.9375rem',
-                  textDecoration: 'none',
-                  letterSpacing: '0.02em',
-                  transition: 'background 0.15s ease',
-                }}
+                className="text-xs uppercase tracking-[0.18em] font-medium text-[#0A192F] hover:text-[#C5A880] transition-colors underline underline-offset-8 decoration-1 decoration-[#C5A880]/60"
               >
-                Shop Eyeglasses
-                <ArrowRight size={16} />
+                Prescription Eyeglasses →
               </Link>
-
-              <Link
-                href="/sunglasses"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  padding: '0.875rem 1.625rem',
-                  borderRadius: '4px',
-                  fontWeight: 600,
-                  fontSize: '0.9375rem',
-                  textDecoration: 'none',
-                  transition: 'background 0.15s ease',
-                }}
-              >
-                Explore Sunglasses
-              </Link>
-            </motion.div>
-
-            {/* Clean Proof Points — Subtle typographic divider */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1.75rem',
-                paddingTop: '1.5rem',
-                borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-              }}
-            >
-              <div>
-                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>5,000+</p>
-                <p style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>Happy Customers</p>
-              </div>
-              <span style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255, 255, 255, 0.15)' }} />
-              <div>
-                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>200+</p>
-                <p style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>Frame Styles</p>
-              </div>
-              <span style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255, 255, 255, 0.15)' }} />
-              <div>
-                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>10+</p>
-                <p style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>Original Brands</p>
-              </div>
             </motion.div>
           </div>
 
-          {/* Right Column — Editorial Eyewear Photograph */}
+          {/* Right Column — Large Editorial Fashion Photography */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ position: 'relative' }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="lg:col-span-5 relative"
           >
-            <div
-              style={{
-                position: 'relative',
-                aspectRatio: '4/3',
-                borderRadius: '8px',
-                overflow: 'hidden',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.35)',
-              }}
-            >
+            <div className="relative aspect-[4/5] w-full max-w-[460px] mx-auto overflow-hidden bg-[#ECE8E1]">
               <Image
-                src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=1200&q=85"
-                alt="LensCare Premium Eyewear Collection"
+                src="/images/editorial/hero_editorial_model.jpg"
+                alt="LensCare 2026 Collection - Model wearing handcrafted titanium optical frame"
                 fill
                 priority
-                style={{ objectFit: 'cover' }}
-                sizes="(max-width: 1023px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 460px"
+                className="object-cover object-center filter grayscale-[10%] hover:scale-[1.02] transition-transform duration-700 ease-out"
               />
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(11, 31, 58, 0.45) 0%, transparent 60%)',
-                }}
-              />
-            </div>
 
-            {/* Single Refined Optical Badge */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '1.25rem',
-                left: '1.25rem',
-                backgroundColor: 'rgba(11, 31, 58, 0.88)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                borderRadius: '4px',
-                padding: '0.625rem 1rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.625rem',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
-              }}
-            >
-              <CheckCircle2 size={16} color="#CFA85B" />
-              <div>
-                <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#FFFFFF', margin: 0 }}>
-                  Free Prescription Fitting
-                </p>
-                <p style={{ fontSize: '0.6875rem', color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
-                  Custom fitted in our Dhaka optical lab
-                </p>
+              {/* Minimal caption in corner */}
+              <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between pointer-events-none">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-white/90 bg-black/40 backdrop-blur-sm px-3 py-1.5 font-light">
+                  Campaign Model · FD-9036
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.16em] text-white/80 bg-black/40 backdrop-blur-sm px-2.5 py-1.5 font-light">
+                  Dhaka Lab
+                </span>
               </div>
             </div>
           </motion.div>
+
         </div>
       </div>
-
-      <style jsx>{`
-        @media (min-width: 1024px) {
-          .hero-layout {
-            grid-template-columns: 1.1fr 0.9fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
