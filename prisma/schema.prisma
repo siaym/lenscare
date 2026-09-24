@@ -1,0 +1,570 @@
+// ============================================================
+// Prisma schema for LensCare — Supabase PostgreSQL backend
+// Supabase Auth manages users; we reference auth.users via userId
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  STAFF
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  LENS_PREPARATION
+  PACKED
+  SHIPPED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  COD
+  SSLCOMMERZ
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum ProductCategory {
+  EYEGLASSES
+  SUNGLASSES
+  ACCESSORIES
+}
+
+enum Gender {
+  MEN
+  WOMEN
+  UNISEX
+  KIDS
+}
+
+enum FrameMaterial {
+  ACETATE
+  METAL
+  TR90
+  TITANIUM
+  WOOD
+  MIXED
+}
+
+enum FrameType {
+  FULL_RIM
+  HALF_RIM
+  RIMLESS
+}
+
+enum ShapeType {
+  EYEGLASSES
+  SUNGLASSES
+  BOTH
+}
+
+enum LensType {
+  SINGLE_VISION
+  BIFOCAL
+  PROGRESSIVE
+}
+
+enum LensMaterial {
+  STANDARD
+  THIN
+  ULTRA_THIN
+}
+
+enum LensCoating {
+  ANTI_REFLECTION
+  BLUE_LIGHT
+  UV_PROTECTION
+  PHOTOCHROMIC
+  TRANSITION
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+// ============================================================
+// USER PROFILE
+// Supabase Auth handles auth — we store extended profile here
+// userId corresponds to auth.users.id (UUID from Supabase)
+// ============================================================
+
+model UserProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique  // Supabase auth.users.id
+  email     String   @unique
+  name      String?
+  phone     String?
+  avatarUrl String?
+  role      UserRole @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  addresses     Address[]
+  orders        Order[]
+  cart          Cart?
+  wishlist      Wishlist?
+  reviews       Review[]
+  prescriptions SavedPrescription[]
+
+  @@index([userId])
+  @@index([email])
+  @@map("user_profiles")
+}
+
+// ============================================================
+// PRODUCT SYSTEM
+// ============================================================
+
+model Brand {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?  @db.Text
+  logo        String?
+  country     String?
+  featured    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products Product[]
+
+  @@index([slug])
+  @@map("brands")
+}
+
+model Shape {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  image     String?
+  type      ShapeType @default(BOTH)
+  sortOrder Int       @default(0)
+
+  products Product[]
+
+  @@index([slug])
+  @@map("shapes")
+}
+
+model Category {
+  id          String          @id @default(cuid())
+  name        String
+  slug        String          @unique
+  description String?         @db.Text
+  image       String?
+  type        ProductCategory
+  sortOrder   Int             @default(0)
+
+  products Product[]
+
+  @@index([slug])
+  @@map("categories")
+}
+
+model Product {
+  id               String          @id @default(cuid())
+  name             String
+  slug             String          @unique
+  sku              String          @unique
+  description      String?         @db.Text
+  shortDescription String?
+  price            Int             // in BDT paisa? No — whole taka
+  salePrice        Int?
+  stock            Int             @default(0)
+  category         ProductCategory
+  gender           Gender          @default(UNISEX)
+  material         FrameMaterial?
+  frameType        FrameType?
+
+  prescriptionAvailable Boolean @default(true)
+  preorder              Boolean @default(false)
+  featured              Boolean @default(false)
+  bestSeller            Boolean @default(false)
+  isActive              Boolean @default(true)
+
+  tags              String[]
+  warranty          String?
+  estimatedDelivery String?
+
+  // Frame dimensions (in mm)
+  lensWidth    Int?
+  bridgeWidth  Int?
+  templeLength Int?
+  frameWidth   Int?
+  lensHeight   Int?
+
+  brandId     String?
+  brand       Brand?    @relation(fields: [brandId], references: [id])
+  shapeId     String?
+  shape       Shape?    @relation(fields: [shapeId], references: [id])
+  categoryId  String?
+  categoryRef Category? @relation(fields: [categoryId], references: [id])
+
+  images        ProductImage[]
+  variants      ProductVariant[]
+  cartItems     CartItem[]
+  orderItems    OrderItem[]
+  reviews       Review[]
+  wishlistItems WishlistItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([category])
+  @@index([brandId])
+  @@index([shapeId])
+  @@index([featured])
+  @@index([bestSeller])
+  @@index([preorder])
+  @@index([isActive])
+  @@map("products")
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  url       String
+  alt       String?
+  order     Int     @default(0)
+  isPrimary Boolean @default(false)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@map("product_images")
+}
+
+model ProductVariant {
+  id        String   @id @default(cuid())
+  productId String
+  color     String
+  colorCode String
+  stock     Int      @default(0)
+  images    String[]
+  sortOrder Int      @default(0)
+
+  product    Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@index([productId])
+  @@map("product_variants")
+}
+
+// ============================================================
+// CART
+// ============================================================
+
+model Cart {
+  id        String   @id @default(cuid())
+  userId    String?  @unique  // Supabase auth user id
+  sessionId String?  @unique  // for guest carts
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userProfile UserProfile? @relation(fields: [userId], references: [userId])
+  items       CartItem[]
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  cartId    String
+  productId String
+  variantId String?
+  quantity  Int    @default(1)
+
+  // Lens configuration
+  lensType     LensType?
+  lensMaterial LensMaterial?
+  lensCoating  LensCoating?
+  lensPrice    Int?
+
+  // Prescription stored as JSON
+  prescription Json?
+
+  cart    Cart            @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product Product         @relation(fields: [productId], references: [id])
+  variant ProductVariant? @relation(fields: [variantId], references: [id])
+
+  @@index([cartId])
+  @@map("cart_items")
+}
+
+// ============================================================
+// WISHLIST
+// ============================================================
+
+model Wishlist {
+  id     String @id @default(cuid())
+  userId String @unique  // Supabase auth user id
+
+  userProfile UserProfile    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  items       WishlistItem[]
+
+  @@map("wishlists")
+}
+
+model WishlistItem {
+  id         String @id @default(cuid())
+  wishlistId String
+  productId  String
+
+  wishlist Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id])
+
+  @@unique([wishlistId, productId])
+  @@map("wishlist_items")
+}
+
+// ============================================================
+// ORDERS
+// ============================================================
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  status      OrderStatus @default(PENDING)
+  userId      String?     // Supabase auth user id (null for guest)
+
+  // Pricing
+  subtotal    Int
+  discount    Int         @default(0)
+  deliveryFee Int         @default(60)
+  total       Int
+
+  // Payment
+  paymentMethod PaymentMethod @default(COD)
+  paymentStatus PaymentStatus @default(PENDING)
+
+  // Shipping address (denormalized for order history)
+  shippingName         String
+  shippingPhone        String
+  shippingEmail        String?
+  shippingAddress      String
+  shippingDivision     String
+  shippingDistrict     String
+  shippingArea         String?
+  shippingPostalCode   String?
+  shippingInstructions String?
+
+  couponCode     String?
+  trackingNumber String?
+  notes          String?  @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userProfile UserProfile? @relation(fields: [userId], references: [userId])
+  items       OrderItem[]
+  payment     Payment?
+
+  @@index([orderNumber])
+  @@index([userId])
+  @@index([status])
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  productId String
+  variantId String?
+  quantity  Int
+  price     Int    // unit price at time of order
+
+  // Lens configuration (snapshot at order time)
+  lensType     LensType?
+  lensMaterial LensMaterial?
+  lensCoating  LensCoating?
+  lensPrice    Int?
+
+  // Prescription snapshot
+  prescription Json?
+
+  order   Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product         @relation(fields: [productId], references: [id])
+  variant ProductVariant? @relation(fields: [variantId], references: [id])
+
+  @@index([orderId])
+  @@map("order_items")
+}
+
+// ============================================================
+// PAYMENT
+// ============================================================
+
+model Payment {
+  id              String        @id @default(cuid())
+  orderId         String        @unique
+  transactionId   String?       @unique
+  amount          Int
+  method          PaymentMethod
+  status          PaymentStatus @default(PENDING)
+  gatewayResponse Json?
+  validatedAt     DateTime?
+  createdAt       DateTime      @default(now())
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@map("payments")
+}
+
+// ============================================================
+// SAVED PRESCRIPTIONS
+// ============================================================
+
+model SavedPrescription {
+  id     String @id @default(cuid())
+  userId String // Supabase auth user id
+  name   String @default("My Prescription")
+
+  // Right Eye
+  rightSph  Float?
+  rightCyl  Float?
+  rightAxis Int?
+  rightAdd  Float?
+  rightPd   Float?
+
+  // Left Eye
+  leftSph  Float?
+  leftCyl  Float?
+  leftAxis Int?
+  leftAdd  Float?
+  leftPd   Float?
+
+  pdDistance           Float?
+  prescriptionImageUrl String?
+  notes                String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userProfile UserProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("saved_prescriptions")
+}
+
+// ============================================================
+// ADDRESS
+// ============================================================
+
+model Address {
+  id           String  @id @default(cuid())
+  userId       String  // Supabase auth user id
+  name         String
+  phone        String
+  address      String
+  division     String
+  district     String
+  area         String?
+  postalCode   String?
+  instructions String?
+  isDefault    Boolean @default(false)
+
+  userProfile UserProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("addresses")
+}
+
+// ============================================================
+// COUPONS
+// ============================================================
+
+model Coupon {
+  id             String       @id @default(cuid())
+  code           String       @unique
+  description    String?
+  discountType   DiscountType @default(PERCENTAGE)
+  discountValue  Int
+  minOrderAmount Int?
+  maxDiscount    Int?
+  usageLimit     Int?
+  usedCount      Int          @default(0)
+  expiresAt      DateTime?
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+
+  @@index([code])
+  @@map("coupons")
+}
+
+// ============================================================
+// REVIEWS
+// ============================================================
+
+model Review {
+  id         String   @id @default(cuid())
+  productId  String
+  userId     String   // Supabase auth user id
+  rating     Int
+  comment    String?  @db.Text
+  isVerified Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userProfile UserProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@unique([productId, userId])
+  @@index([productId])
+  @@map("reviews")
+}
+
+// ============================================================
+// INVENTORY LOG
+// ============================================================
+
+model InventoryLog {
+  id        String   @id @default(cuid())
+  productId String
+  variantId String?
+  change    Int      // positive = stock in, negative = stock out
+  reason    String?
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+  @@map("inventory_logs")
+}
+
+// ============================================================
+// STORE SETTINGS
+// ============================================================
+
+model StoreSettings {
+  id          String  @id @default(cuid())
+  key         String  @unique
+  value       String  @db.Text
+  description String?
+
+  @@map("store_settings")
+}

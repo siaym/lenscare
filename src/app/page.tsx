@@ -1,69 +1,116 @@
-import Image from "next/image";
+import type { Metadata } from 'next';
+import { HeroSection } from '@/components/home/HeroSection';
+import { ProductCarouselSection } from '@/components/home/ProductCarouselSection';
+import { ShopByShapeSection } from '@/components/home/ShopByShapeSection';
+import { TrustSection } from '@/components/home/TrustSection';
+import { BrandsSection } from '@/components/home/BrandsSection';
+import { NewsletterSection } from '@/components/home/NewsletterSection';
+import {
+  BEST_SELLERS,
+  EYEGLASSES,
+  SUNGLASSES,
+  NEW_ARRIVALS,
+  PREORDERS,
+  SHAPES,
+  BRANDS,
+} from '@/lib/data/mockData';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'LensCare — See Better. Look Better.',
+  description:
+    "Bangladesh's premium eyewear destination. Shop prescription eyeglasses, designer sunglasses, progressive lenses and more. Fast delivery. Authentic brands.",
+};
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      {/* 1. Hero */}
+      <HeroSection />
+
+      {/* 2. Best Sellers */}
+      <ProductCarouselSection
+        id="best-sellers"
+        title="Best Sellers"
+        subtitle="Our most-loved frames, chosen by thousands of happy customers."
+        products={BEST_SELLERS}
+        viewAllHref="/shop?sort=best-selling"
+        viewAllLabel="View All Best Sellers"
+        bg="var(--color-bg)"
+      />
+
+      {/* 3. Eyeglasses by Shape */}
+      <ShopByShapeSection
+        title="Shop Eyeglasses by Shape"
+        subtitle="Find your perfect frame silhouette."
+        shapes={SHAPES.filter((s) => s.type === 'BOTH' || s.type === 'EYEGLASSES')}
+        basePath="/eyeglasses"
+        bg="var(--color-surface-2)"
+      />
+
+      {/* 4. Prescription Eyeglasses */}
+      <ProductCarouselSection
+        id="eyeglasses"
+        title="Prescription Eyeglasses"
+        subtitle="Premium frames ready for your prescription lenses."
+        products={EYEGLASSES}
+        viewAllHref="/eyeglasses"
+        viewAllLabel="Browse All Eyeglasses"
+        bg="var(--color-bg)"
+      />
+
+      {/* 5. Sunglasses by Shape */}
+      <ShopByShapeSection
+        title="Shop Sunglasses by Shape"
+        subtitle="Choose your style. Protect your eyes."
+        shapes={SHAPES.filter((s) => s.type === 'BOTH' || s.type === 'SUNGLASSES')}
+        basePath="/sunglasses"
+        bg="var(--color-surface-2)"
+      />
+
+      {/* 6. Sunglasses */}
+      <ProductCarouselSection
+        id="sunglasses"
+        title="Sunglasses"
+        subtitle="Polarized, UV400, and endlessly stylish."
+        products={SUNGLASSES}
+        viewAllHref="/sunglasses"
+        viewAllLabel="Browse All Sunglasses"
+        bg="var(--color-bg)"
+      />
+
+      {/* 7. New Arrivals */}
+      <ProductCarouselSection
+        id="new-arrivals"
+        title="New Arrivals"
+        subtitle="Fresh styles just landed."
+        products={NEW_ARRIVALS}
+        viewAllHref="/shop?sort=newest"
+        viewAllLabel="See All New Arrivals"
+        bg="var(--color-surface-2)"
+      />
+
+      {/* 8. Pre-Order */}
+      {PREORDERS.length > 0 && (
+        <ProductCarouselSection
+          id="pre-order"
+          title="Pre-Order"
+          subtitle="Reserve exclusive styles before they arrive."
+          products={PREORDERS}
+          viewAllHref="/pre-order"
+          viewAllLabel="View All Pre-Orders"
+          bg="var(--color-primary)"
+          dark
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      )}
+
+      {/* 9. Brands */}
+      <BrandsSection brands={BRANDS.filter((b) => b.featured)} />
+
+      {/* 10. Why Choose Us */}
+      <TrustSection />
+
+      {/* 11. Newsletter */}
+      <NewsletterSection />
+    </>
   );
 }
