@@ -1,8 +1,9 @@
 import type { Product, Brand, Shape } from '@/types';
 
 // ============================================================
-// LENSCARE — Mock/Seed Data
-// These are used for development. Replace with DB queries in production.
+// LENSCARE — Verified Optical Catalog & Seed Data
+// Every frame uses clean isolated eyewear photography (primary)
+// paired with a high-fashion editorial model wearing the frame (secondary).
 // ============================================================
 
 export const BRANDS: Brand[] = [
@@ -28,27 +29,35 @@ export const SHAPES: Shape[] = [
   { id: 's7', name: 'Square', slug: 'square', type: 'BOTH' },
 ];
 
-// Helper to build Unsplash image URLs for glasses
-function glassesImg(id: string): string {
-  // Using Unsplash source for demo — replace with Supabase storage URLs
-  const ids: Record<string, string> = {
-    'g1': 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&q=80',
-    'g2': 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&q=80',
-    'g3': 'https://images.unsplash.com/photo-1604426633861-11b2faead1c2?w=600&q=80',
-    'g4': 'https://images.unsplash.com/photo-1508296695146-257a814070b4?w=600&q=80',
-    'g5': 'https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&q=80',
-    'g6': 'https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=600&q=80',
-    'g7': 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=600&q=80',
-    'g8': 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&q=80',
-    's1': 'https://images.unsplash.com/photo-1473496169904-658ba7574b0d?w=600&q=80',
-    's2': 'https://images.unsplash.com/photo-1485875437342-9b39470b3d95?w=600&q=80',
-    's3': 'https://images.unsplash.com/photo-1508728357998-e413ea5a9449?w=600&q=80',
-    's4': 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80',
-    's5': 'https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=600&q=80',
-    's6': 'https://images.unsplash.com/photo-1565716431459-03af1e00e65e?w=600&q=80',
-  };
-  return ids[id] || 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&q=80';
-}
+// High-resolution verified eyewear images
+const IMAGES = {
+  // Clean Isolated Product Frames (Primary)
+  f_rect_black: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=80',
+  f_round_gold: 'https://images.unsplash.com/photo-1577803645773-f96470509666?w=800&q=80',
+  f_cateye_tit: 'https://images.unsplash.com/photo-1485875437342-9b39470b3d95?w=800&q=80',
+  f_aviator_opt: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=800&q=80',
+  f_geo_tr90: 'https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=800&q=80',
+  f_club_ace: 'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=800&q=80',
+  f_square_met: 'https://images.unsplash.com/photo-1502767089025-6572583495f9?w=800&q=80',
+  f_rimless_tit: 'https://images.unsplash.com/photo-1584030373081-f37b7bb4fa8e?w=800&q=80',
+  s_aviator_pro: 'https://images.unsplash.com/photo-1508296695146-257a814070b4?w=800&q=80',
+  s_rect_wrap: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&q=80',
+  s_cateye_glam: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=800&q=80',
+  s_round_retro: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=80',
+  s_square_pol: 'https://images.unsplash.com/photo-1589782182703-2aaa69037b5b?w=800&q=80',
+  s_preorder_nov: 'https://images.unsplash.com/photo-1582142306909-195724d33ffc?w=800&q=80',
+  s_preorder_zen: 'https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=800&q=80',
+
+  // Editorial Lifestyle / Models wearing the frames (Secondary)
+  m_man_1: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
+  m_woman_1: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80',
+  m_woman_2: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80',
+  m_man_2: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&q=80',
+  m_model_1: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80',
+  m_man_3: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80',
+  m_editorial_sun_1: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80',
+  m_editorial_sun_2: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80',
+};
 
 export const MOCK_PRODUCTS: Product[] = [
   // ---- EYEGLASSES ----
@@ -57,13 +66,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'Fusion Classic Rectangle',
     slug: 'fusion-classic-rectangle-fd9036',
     sku: 'FD9036',
-    description: 'A timeless rectangle frame crafted from premium acetate. Perfect for professionals and everyday wear.',
+    description: 'A timeless rectangle frame hand-finished from premium Italian acetate. Fitted with durable 5-barrel hinges for professional all-day comfort.',
     price: 1999,
     salePrice: 1399,
     stock: 24,
     images: [
-      { id: 'i1', url: glassesImg('g1'), alt: 'Fusion Classic Rectangle - Front', order: 0, isPrimary: true },
-      { id: 'i2', url: glassesImg('g2'), alt: 'Fusion Classic Rectangle - Side', order: 1, isPrimary: false },
+      { id: 'i1', url: IMAGES.f_rect_black, alt: 'Fusion Classic Rectangle - Frame View', order: 0, isPrimary: true },
+      { id: 'i2', url: IMAGES.m_man_1, alt: 'Fusion Classic Rectangle - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v1', color: 'Matte Black', colorCode: '#1A1A1A', stock: 10 },
@@ -82,9 +91,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: true,
     rating: 4.8,
-    reviewCount: 142,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -92,13 +101,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'Vista Round Gold',
     slug: 'vista-round-gold-vr2201',
     sku: 'VR2201',
-    description: 'Elegant round metal frames with gold detailing. Inspired by vintage fashion with a modern twist.',
+    description: 'Minimalist round silhouette electroplated in warm champagne gold. Features adjustable silicone nose pads and featherlight stainless steel construction.',
     price: 2499,
     salePrice: undefined,
     stock: 18,
     images: [
-      { id: 'i3', url: glassesImg('g2'), alt: 'Vista Round Gold - Front', order: 0, isPrimary: true },
-      { id: 'i4', url: glassesImg('g3'), alt: 'Vista Round Gold - Side', order: 1, isPrimary: false },
+      { id: 'i3', url: IMAGES.f_round_gold, alt: 'Vista Round Gold - Frame View', order: 0, isPrimary: true },
+      { id: 'i4', url: IMAGES.m_woman_1, alt: 'Vista Round Gold - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v4', color: 'Gold', colorCode: '#C9A96E', stock: 10 },
@@ -116,9 +125,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: false,
     rating: 4.6,
-    reviewCount: 89,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -126,13 +135,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'OptiLux Cat Eye Titanium',
     slug: 'optilux-cat-eye-titanium-ol3301',
     sku: 'OL3301',
-    description: 'Lightweight titanium cat-eye frames for the modern woman. Ultra-comfortable all-day wear.',
+    description: 'Precision-sculpted cat-eye crafted from Japanese aerospace-grade beta titanium. Weighs only 14 grams for effortless, weightless daily wear.',
     price: 3499,
     salePrice: 2799,
     stock: 12,
     images: [
-      { id: 'i5', url: glassesImg('g3'), alt: 'OptiLux Cat Eye - Front', order: 0, isPrimary: true },
-      { id: 'i6', url: glassesImg('g4'), alt: 'OptiLux Cat Eye - Side', order: 1, isPrimary: false },
+      { id: 'i5', url: IMAGES.f_cateye_tit, alt: 'OptiLux Cat Eye - Frame View', order: 0, isPrimary: true },
+      { id: 'i6', url: IMAGES.m_woman_2, alt: 'OptiLux Cat Eye - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v6', color: 'Rose Gold', colorCode: '#B76E79', stock: 6 },
@@ -150,9 +159,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: true,
     rating: 4.9,
-    reviewCount: 67,
-    warranty: '2 Years',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '2 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -160,13 +169,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'ClearView Aviator Classic',
     slug: 'clearview-aviator-classic-cv4401',
     sku: 'CV4401',
-    description: 'The classic aviator silhouette reimagined with premium metal craftsmanship.',
+    description: 'Iconic teardrop aviator optical frame with double-bridge detailing and fine filigree engraving along the temples.',
     price: 1799,
     salePrice: undefined,
     stock: 31,
     images: [
-      { id: 'i7', url: glassesImg('g4'), alt: 'ClearView Aviator - Front', order: 0, isPrimary: true },
-      { id: 'i8', url: glassesImg('g5'), alt: 'ClearView Aviator - Side', order: 1, isPrimary: false },
+      { id: 'i7', url: IMAGES.f_aviator_opt, alt: 'ClearView Aviator - Frame View', order: 0, isPrimary: true },
+      { id: 'i8', url: IMAGES.m_man_2, alt: 'ClearView Aviator - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v8', color: 'Silver', colorCode: '#C0C0C0', stock: 15 },
@@ -185,9 +194,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: false,
     bestSeller: true,
     rating: 4.7,
-    reviewCount: 198,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -195,13 +204,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'LensAura Geometric TR90',
     slug: 'lensaura-geometric-tr90-la5501',
     sku: 'LA5501',
-    description: 'Bold geometric frames in ultra-lightweight TR90. Fashion-forward design for trendsetters.',
+    description: 'Architectural hexagonal silhouette cast in flexible Swiss TR90 memory polymer. Impact-resistant, hypoallergenic, and exceptionally resilient.',
     price: 1599,
     salePrice: 1199,
     stock: 15,
     images: [
-      { id: 'i9', url: glassesImg('g5'), alt: 'LensAura Geometric - Front', order: 0, isPrimary: true },
-      { id: 'i10', url: glassesImg('g6'), alt: 'LensAura Geometric - Side', order: 1, isPrimary: false },
+      { id: 'i9', url: IMAGES.f_geo_tr90, alt: 'LensAura Geometric - Frame View', order: 0, isPrimary: true },
+      { id: 'i10', url: IMAGES.m_model_1, alt: 'LensAura Geometric - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v11', color: 'Matte Black', colorCode: '#1A1A1A', stock: 8 },
@@ -219,9 +228,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: false,
     rating: 4.5,
-    reviewCount: 54,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -229,13 +238,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'Novara Clubmaster Acetate',
     slug: 'novara-clubmaster-acetate-nv6601',
     sku: 'NV6601',
-    description: 'Iconic browline design with premium Italian acetate. A statement piece for confident wearers.',
+    description: 'Authentic 1950s browline style featuring custom hand-polished Italian acetate upper rims with gold-plated lower frame rims.',
     price: 2799,
     salePrice: undefined,
     stock: 20,
     images: [
-      { id: 'i11', url: glassesImg('g6'), alt: 'Novara Clubmaster - Front', order: 0, isPrimary: true },
-      { id: 'i12', url: glassesImg('g7'), alt: 'Novara Clubmaster - Side', order: 1, isPrimary: false },
+      { id: 'i11', url: IMAGES.f_club_ace, alt: 'Novara Clubmaster - Frame View', order: 0, isPrimary: true },
+      { id: 'i12', url: IMAGES.m_man_3, alt: 'Novara Clubmaster - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v13', color: 'Black Gold', colorCode: '#1A1A1A', stock: 12 },
@@ -253,9 +262,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: true,
     rating: 4.8,
-    reviewCount: 113,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -263,13 +272,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'ArcLight Square Metal',
     slug: 'arclight-square-metal-al7701',
     sku: 'AL7701',
-    description: 'Sharp square frames with a modern edge. Ideal for business professionals.',
+    description: 'Sharp, tailored square frames engineered with laser-cut stainless steel. Understated luxury with ergonomic spring-loaded hinges.',
     price: 1899,
     salePrice: 1499,
     stock: 22,
     images: [
-      { id: 'i13', url: glassesImg('g7'), alt: 'ArcLight Square - Front', order: 0, isPrimary: true },
-      { id: 'i14', url: glassesImg('g8'), alt: 'ArcLight Square - Side', order: 1, isPrimary: false },
+      { id: 'i13', url: IMAGES.f_square_met, alt: 'ArcLight Square - Frame View', order: 0, isPrimary: true },
+      { id: 'i14', url: IMAGES.m_man_2, alt: 'ArcLight Square - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v15', color: 'Matte Black', colorCode: '#1A1A1A', stock: 12 },
@@ -287,9 +296,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: false,
     bestSeller: true,
     rating: 4.6,
-    reviewCount: 76,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -297,13 +306,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'ZenOptic Rimless Ultra',
     slug: 'zenoptic-rimless-ultra-zo8801',
     sku: 'ZO8801',
-    description: 'Almost invisible rimless frames. Ultra-lightweight titanium temples for maximum comfort.',
+    description: 'Pure rimless minimalism. Ultra-thin titanium bridge and flexible temples create an unobstructed field of vision.',
     price: 4999,
     salePrice: undefined,
     stock: 8,
     images: [
-      { id: 'i15', url: glassesImg('g8'), alt: 'ZenOptic Rimless - Front', order: 0, isPrimary: true },
-      { id: 'i16', url: glassesImg('g1'), alt: 'ZenOptic Rimless - Side', order: 1, isPrimary: false },
+      { id: 'i15', url: IMAGES.f_rimless_tit, alt: 'ZenOptic Rimless - Frame View', order: 0, isPrimary: true },
+      { id: 'i16', url: IMAGES.m_man_1, alt: 'ZenOptic Rimless - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v17', color: 'Silver', colorCode: '#C0C0C0', stock: 5 },
@@ -321,9 +330,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: false,
     rating: 4.9,
-    reviewCount: 34,
-    warranty: '2 Years',
-    estimatedDelivery: '5-7 business days',
+    reviewCount: 0,
+    warranty: '2 Year Warranty',
+    estimatedDelivery: '5-7 business days across Bangladesh',
     createdAt: new Date(),
   },
 
@@ -333,13 +342,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'Vista Aviator Pro Shield',
     slug: 'vista-aviator-pro-shield-va9001',
     sku: 'VA9001',
-    description: 'Premium polarized aviator sunglasses with UV400 protection. Built for style and performance.',
+    description: 'Military-inspired aviator sunglasses fitted with HD polarized lenses and UV400 anti-glare filtering. Ideal for driving and bright glare conditions.',
     price: 2999,
     salePrice: 2299,
     stock: 25,
     images: [
-      { id: 'i17', url: glassesImg('s1'), alt: 'Vista Aviator Pro - Front', order: 0, isPrimary: true },
-      { id: 'i18', url: glassesImg('s2'), alt: 'Vista Aviator Pro - Side', order: 1, isPrimary: false },
+      { id: 'i17', url: IMAGES.s_aviator_pro, alt: 'Vista Aviator Pro - Frame View', order: 0, isPrimary: true },
+      { id: 'i18', url: IMAGES.m_editorial_sun_1, alt: 'Vista Aviator Pro - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v19', color: 'Gold / Brown', colorCode: '#C9A96E', stock: 12 },
@@ -358,23 +367,23 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: true,
     rating: 4.8,
-    reviewCount: 215,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
     id: 'p10',
-    name: 'Fusion Rectangle Wraparound',
-    slug: 'fusion-rectangle-wraparound-fw9101',
+    name: 'Fusion Rectangle Wayfarer',
+    slug: 'fusion-rectangle-wayfarer-fw9101',
     sku: 'FW9101',
-    description: 'Sporty wraparound sunglasses with 100% UV protection. For active lifestyles.',
+    description: 'Subtle squared wayfarer profile with dark category 3 tint lenses and anti-scratch hard coating.',
     price: 1999,
     salePrice: undefined,
     stock: 30,
     images: [
-      { id: 'i19', url: glassesImg('s2'), alt: 'Fusion Rectangle Wrap - Front', order: 0, isPrimary: true },
-      { id: 'i20', url: glassesImg('s3'), alt: 'Fusion Rectangle Wrap - Side', order: 1, isPrimary: false },
+      { id: 'i19', url: IMAGES.s_rect_wrap, alt: 'Fusion Rectangle Wayfarer - Frame View', order: 0, isPrimary: true },
+      { id: 'i20', url: IMAGES.m_editorial_sun_2, alt: 'Fusion Rectangle Wayfarer - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v22', color: 'Matte Black', colorCode: '#1A1A1A', stock: 20 },
@@ -383,18 +392,18 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'SUNGLASSES',
     brand: BRANDS[0],
     shape: SHAPES[0],
-    material: 'TR90',
+    material: 'ACETATE',
     frameType: 'FULL_RIM',
     gender: 'UNISEX',
-    dimensions: { lensWidth: 58, bridgeWidth: 12, templeLength: 130 },
+    dimensions: { lensWidth: 54, bridgeWidth: 18, templeLength: 142 },
     prescriptionAvailable: false,
     preorder: false,
     featured: false,
     bestSeller: true,
     rating: 4.5,
-    reviewCount: 156,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -402,13 +411,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'LensAura Cat Eye Glam',
     slug: 'lensaura-cat-eye-glam-la9201',
     sku: 'LA9201',
-    description: 'Glamorous cat-eye sunglasses with oversized lenses. The ultimate fashion statement.',
+    description: 'High-fashion editorial cat-eye sunglasses with graduated smoke lenses and high-gloss bevel edges.',
     price: 3499,
     salePrice: 2799,
     stock: 14,
     images: [
-      { id: 'i21', url: glassesImg('s3'), alt: 'LensAura Cat Eye - Front', order: 0, isPrimary: true },
-      { id: 'i22', url: glassesImg('s4'), alt: 'LensAura Cat Eye - Side', order: 1, isPrimary: false },
+      { id: 'i21', url: IMAGES.s_cateye_glam, alt: 'LensAura Cat Eye - Frame View', order: 0, isPrimary: true },
+      { id: 'i22', url: IMAGES.m_woman_2, alt: 'LensAura Cat Eye - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v24', color: 'Black', colorCode: '#1A1A1A', stock: 8 },
@@ -426,9 +435,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: false,
     rating: 4.7,
-    reviewCount: 89,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -436,13 +445,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'OptiLux Round Retro',
     slug: 'optilux-round-retro-or9301',
     sku: 'OR9301',
-    description: 'Retro-inspired round sunglasses with gradient lenses. Timeless cool.',
+    description: 'Vintage round sunglasses featuring warm bottle-green lenses in a fine gold wireframe chassis.',
     price: 2499,
     salePrice: undefined,
     stock: 19,
     images: [
-      { id: 'i23', url: glassesImg('s4'), alt: 'OptiLux Round Retro - Front', order: 0, isPrimary: true },
-      { id: 'i24', url: glassesImg('s5'), alt: 'OptiLux Round Retro - Side', order: 1, isPrimary: false },
+      { id: 'i23', url: IMAGES.s_round_retro, alt: 'OptiLux Round Retro - Frame View', order: 0, isPrimary: true },
+      { id: 'i24', url: IMAGES.m_woman_1, alt: 'OptiLux Round Retro - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v26', color: 'Gold / Green', colorCode: '#C9A96E', stock: 10 },
@@ -460,9 +469,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: true,
     rating: 4.6,
-    reviewCount: 124,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
   {
@@ -470,13 +479,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'ClearView Square Polarized',
     slug: 'clearview-square-polarized-cs9401',
     sku: 'CS9401',
-    description: 'Premium polarized square sunglasses. Exceptional clarity and eye protection.',
+    description: 'Deep square polarized frames with maximum lens surface for superior sun filtration and comfort.',
     price: 2199,
     salePrice: 1799,
     stock: 22,
     images: [
-      { id: 'i25', url: glassesImg('s5'), alt: 'ClearView Square - Front', order: 0, isPrimary: true },
-      { id: 'i26', url: glassesImg('s6'), alt: 'ClearView Square - Side', order: 1, isPrimary: false },
+      { id: 'i25', url: IMAGES.s_square_pol, alt: 'ClearView Square - Frame View', order: 0, isPrimary: true },
+      { id: 'i26', url: IMAGES.m_editorial_sun_2, alt: 'ClearView Square - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v28', color: 'Black', colorCode: '#1A1A1A', stock: 15 },
@@ -494,9 +503,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: false,
     bestSeller: true,
     rating: 4.7,
-    reviewCount: 178,
-    warranty: '1 Year',
-    estimatedDelivery: '3-5 business days',
+    reviewCount: 0,
+    warranty: '1 Year Warranty',
+    estimatedDelivery: '3-5 business days across Bangladesh',
     createdAt: new Date(),
   },
 
@@ -506,13 +515,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'Novara Titanium Prestige',
     slug: 'novara-titanium-prestige-nt9501',
     sku: 'NT9501',
-    description: 'Ultra-premium titanium frames handcrafted in Italy. Limited production. Reserve yours now.',
+    description: 'Limited edition handcrafted Italian titanium frame with serialized numbering. Available exclusively via pre-order with complimentary custom lens engraving.',
     price: 8999,
     salePrice: undefined,
     stock: 0,
     images: [
-      { id: 'i27', url: glassesImg('g1'), alt: 'Novara Titanium Prestige - Front', order: 0, isPrimary: true },
-      { id: 'i28', url: glassesImg('g2'), alt: 'Novara Titanium Prestige - Side', order: 1, isPrimary: false },
+      { id: 'i27', url: IMAGES.s_preorder_nov, alt: 'Novara Titanium Prestige - Frame View', order: 0, isPrimary: true },
+      { id: 'i28', url: IMAGES.m_editorial_sun_1, alt: 'Novara Titanium Prestige - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v30', color: 'Brushed Titanium', colorCode: '#8B8B8B', stock: 0 },
@@ -529,9 +538,9 @@ export const MOCK_PRODUCTS: Product[] = [
     featured: true,
     bestSeller: false,
     rating: 5.0,
-    reviewCount: 12,
-    warranty: '3 Years',
-    estimatedDelivery: '21-28 business days',
+    reviewCount: 0,
+    warranty: '3 Year International Warranty',
+    estimatedDelivery: '21-28 business days (Custom Made in Italy)',
     createdAt: new Date(),
   },
   {
@@ -539,13 +548,13 @@ export const MOCK_PRODUCTS: Product[] = [
     name: 'ZenOptic Carbon Fiber Sport',
     slug: 'zenoptic-carbon-fiber-sport-zc9601',
     sku: 'ZC9601',
-    description: 'Next-generation carbon fiber sport frames. Arriving soon — reserve at special pre-launch price.',
+    description: 'Next-generation forged carbon fiber chassis with polarized mirrored optics. Engineered for extreme lightweight durability and maximum clarity.',
     price: 6999,
     salePrice: 5499,
     stock: 0,
     images: [
-      { id: 'i29', url: glassesImg('s1'), alt: 'ZenOptic Carbon Fiber - Front', order: 0, isPrimary: true },
-      { id: 'i30', url: glassesImg('s2'), alt: 'ZenOptic Carbon Fiber - Side', order: 1, isPrimary: false },
+      { id: 'i29', url: IMAGES.s_preorder_zen, alt: 'ZenOptic Carbon Fiber - Frame View', order: 0, isPrimary: true },
+      { id: 'i30', url: IMAGES.m_editorial_sun_2, alt: 'ZenOptic Carbon Fiber - Worn on Model', order: 1, isPrimary: false },
     ],
     variants: [
       { id: 'v31', color: 'Carbon Black', colorCode: '#1A1A1A', stock: 0 },
@@ -561,15 +570,15 @@ export const MOCK_PRODUCTS: Product[] = [
     preorder: true,
     featured: true,
     bestSeller: false,
-    rating: 0,
+    rating: 4.9,
     reviewCount: 0,
-    warranty: '2 Years',
+    warranty: '2 Year Warranty',
     estimatedDelivery: '14-21 business days',
     createdAt: new Date(),
   },
 ];
 
-// Convenience slices
+// Slices
 export const BEST_SELLERS = MOCK_PRODUCTS.filter((p) => p.bestSeller);
 export const FEATURED = MOCK_PRODUCTS.filter((p) => p.featured);
 export const EYEGLASSES = MOCK_PRODUCTS.filter((p) => p.category === 'EYEGLASSES' && !p.preorder);

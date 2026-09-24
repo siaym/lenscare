@@ -1,281 +1,241 @@
 'use client';
 
 import Link from 'next/link';
-import { Phone, Mail, MapPin } from 'lucide-react';
 
-// Inline SVG social icons (Facebook/Instagram removed from lucide-react)
+// Inline SVG social icons
 const FacebookIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
   </svg>
 );
 const InstagramIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
   </svg>
 );
 const WhatsAppIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
   </svg>
 );
 
-const FOOTER_LINKS = {
-  shop: [
-    { label: 'Eyeglasses', href: '/eyeglasses' },
-    { label: 'Sunglasses', href: '/sunglasses' },
-    { label: 'Brands', href: '/brands' },
-    { label: 'Pre-Order', href: '/pre-order' },
-    { label: 'New Arrivals', href: '/shop?sort=newest' },
-    { label: 'Best Sellers', href: '/shop?sort=best-selling' },
-  ],
-  customerCare: [
-    { label: 'Contact Us', href: '/contact' },
-    { label: 'Track Order', href: '/track-order' },
-    { label: 'Shipping Policy', href: '/shipping' },
-    { label: 'Returns & Exchange', href: '/returns' },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Frame Size Guide', href: '/size-guide' },
-  ],
-  information: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
-    { label: 'Refund Policy', href: '/refund' },
-    { label: 'Prescription Guide', href: '/prescription-guide' },
-  ],
-};
-
 export function Footer() {
   return (
-    <footer className="footer">
-      <div className="container">
+    <footer style={{ backgroundColor: '#07172B', color: '#FFFFFF', padding: '4.5rem 0 2rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+      <div className="container" style={{ padding: '0 1.25rem' }}>
+        {/* Main Grid: Brand Column + 3 Link Columns */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '2.5rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '3rem 2rem',
+            paddingBottom: '3.5rem',
           }}
-          className="footer-grid"
         >
-          {/* Brand Column */}
-          <div>
-            {/* Logo */}
+          {/* Brand Intro Column */}
+          <div style={{ maxWidth: '320px' }}>
             <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '1rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <div
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    background: 'var(--color-accent)',
-                    borderRadius: '7px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <svg width="20" height="10" viewBox="0 0 22 12" fill="none">
-                    <circle cx="5.5" cy="6" r="4.5" stroke="#0B1F3A" strokeWidth="1.5" fill="none" />
-                    <circle cx="16.5" cy="6" r="4.5" stroke="#0B1F3A" strokeWidth="1.5" fill="none" />
-                    <line x1="10" y1="6" x2="12" y2="6" stroke="#0B1F3A" strokeWidth="1.5" />
-                    <line x1="1" y1="6" x2="1" y2="4" stroke="#0B1F3A" strokeWidth="1.5" />
-                    <line x1="21" y1="6" x2="21" y2="4" stroke="#0B1F3A" strokeWidth="1.5" />
-                  </svg>
-                </div>
-                <span style={{ fontWeight: 800, fontSize: '1.2rem', color: 'white', letterSpacing: '-0.02em' }}>
-                  Lens<span style={{ color: 'var(--color-accent)' }}>Care</span>
-                </span>
-              </div>
+              <span style={{ fontSize: '1.375rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+                Lens<span style={{ color: '#CFA85B' }}>Care</span>
+              </span>
             </Link>
 
-            <p style={{ fontSize: '0.875rem', lineHeight: 1.7, maxWidth: '280px', marginBottom: '1.5rem' }}>
-              Bangladesh&apos;s premium eyewear destination. Authentic brands, prescription services, and fast delivery across the country.
+            <p style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.65)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+              Premium eyewear for modern Bangladesh. Authentic frames, optical lab precision, and verified nationwide delivery.
             </p>
 
-            {/* Contact */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', marginBottom: '1.5rem' }}>
-              <a
-                href="tel:+8801XXXXXXXXX"
-                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}
-              >
-                <Phone size={14} />
-                +880 1XXX-XXXXXX
-              </a>
-              <a
-                href="mailto:hello@lenscare.com.bd"
-                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}
-              >
-                <Mail size={14} />
-                hello@lenscare.com.bd
-              </a>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}>
-                <MapPin size={14} style={{ flexShrink: 0 }} />
-                <span>Dhaka, Bangladesh</span>
-              </div>
-            </div>
-
-            {/* Social */}
+            {/* Social Links */}
             <div style={{ display: 'flex', gap: '0.625rem' }}>
-              {[
-                { href: 'https://facebook.com', icon: <FacebookIcon />, label: 'Facebook' },
-                { href: 'https://instagram.com', icon: <InstagramIcon />, label: 'Instagram' },
-                { href: 'https://wa.me/8801XXXXXXXXX', icon: <WhatsAppIcon />, label: 'WhatsApp' },
-              ].map(({ href, icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '2.25rem',
-                    height: '2.25rem',
-                    background: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    borderRadius: 'var(--radius-md)',
-                    color: 'rgba(255,255,255,0.7)',
-                    transition: 'all 0.2s ease',
-                    textDecoration: 'none',
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = 'var(--color-accent)';
-                    (e.currentTarget as HTMLElement).style.color = 'var(--color-primary)';
-                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-accent)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)';
-                    (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.7)';
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)';
-                  }}
-                >
-                  {icon}
-                </a>
-              ))}
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  textDecoration: 'none',
+                }}
+              >
+                <FacebookIcon />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  textDecoration: 'none',
+                }}
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href="https://wa.me/8801700000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  textDecoration: 'none',
+                }}
+              >
+                <WhatsAppIcon />
+              </a>
             </div>
           </div>
 
-          {/* Shop Links */}
+          {/* Column 1: SHOP */}
           <div>
-            <h3 style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: '1.25rem' }}>
-              Shop
-            </h3>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-              {FOOTER_LINKS.shop.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', transition: 'color 0.15s ease' }}
-                    onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)'}
-                    onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.7)'}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+              SHOP
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <li>
+                <Link href="/eyeglasses" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Eyeglasses
+                </Link>
+              </li>
+              <li>
+                <Link href="/sunglasses" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Sunglasses
+                </Link>
+              </li>
+              <li>
+                <Link href="/brands" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Brands
+                </Link>
+              </li>
+              <li>
+                <Link href="/pre-order" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Pre-Order
+                </Link>
+              </li>
+              <li>
+                <Link href="/shop" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  All Eyewear
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Customer Care */}
+          {/* Column 2: HELP */}
           <div>
-            <h3 style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: '1.25rem' }}>
-              Customer Care
-            </h3>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-              {FOOTER_LINKS.customerCare.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', transition: 'color 0.15s ease' }}
-                    onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)'}
-                    onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.7)'}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+              HELP
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <li>
+                <Link href="/contact" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/track-order" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Track Order
+                </Link>
+              </li>
+              <li>
+                <Link href="/shipping" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Shipping & Courier
+                </Link>
+              </li>
+              <li>
+                <Link href="/returns" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  7-Day Returns
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Prescription FAQ
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Information */}
+          {/* Column 3: COMPANY */}
           <div>
-            <h3 style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: '1.25rem' }}>
-              Information
-            </h3>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-              {FOOTER_LINKS.information.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', transition: 'color 0.15s ease' }}
-                    onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)'}
-                    onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.7)'}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+              COMPANY
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <li>
+                <Link href="/about" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  About LensCare
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link href="/refund" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                  Refund Guarantee
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.5)', textDecoration: 'none' }}>
+                  Admin Portal
+                </Link>
+              </li>
             </ul>
-
-            {/* Payment badges */}
-            <div style={{ marginTop: '2rem' }}>
-              <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                We Accept
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {['SSLCommerz', 'Cash on Delivery', 'bKash'].map((method) => (
-                  <span
-                    key={method}
-                    style={{
-                      padding: '0.25rem 0.625rem',
-                      background: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      borderRadius: 'var(--radius-sm)',
-                      fontSize: '0.7rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      fontWeight: 500,
-                    }}
-                  >
-                    {method}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Legal / Payment Strip */}
         <div
           style={{
-            borderTop: '1px solid rgba(255,255,255,0.08)',
-            marginTop: '3rem',
-            paddingTop: '1.5rem',
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            paddingTop: '2rem',
             display: 'flex',
-            flexDirection: 'column',
-            gap: '0.5rem',
             alignItems: 'center',
-            textAlign: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem',
           }}
         >
-          <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.4)' }}>
-            © {new Date().getFullYear()} LensCare. All rights reserved.
+          <p style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.5)', margin: 0 }}>
+            © {new Date().getFullYear()} LensCare Optical Systems. All rights reserved.
           </p>
-          <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)' }}>
-            Made with ❤️ in Bangladesh
-          </p>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)' }}>
+            <span>SSLCommerz Secured</span>
+            <span>•</span>
+            <span>bKash</span>
+            <span>•</span>
+            <span>Cash on Delivery</span>
+          </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @media (min-width: 640px) {
-          .footer-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-        @media (min-width: 1024px) {
-          .footer-grid {
-            grid-template-columns: 1.6fr 1fr 1fr 1fr !important;
-          }
-        }
-      `}</style>
     </footer>
   );
 }

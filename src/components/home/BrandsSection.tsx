@@ -2,94 +2,64 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import type { Brand } from '@/types';
 
 interface BrandsSectionProps {
   brands: Brand[];
 }
 
-// Brand placeholder logos using initials
-function BrandLogo({ brand }: { brand: Brand }) {
-  const initials = brand.name
-    .split(' ')
-    .map((w) => w[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-
-  const colors = [
-    ['#0B1F3A', '#C9A96E'],
-    ['#1a3560', '#dbbe93'],
-    ['#2D4E7A', '#C9A96E'],
-    ['#0B1F3A', '#ffffff'],
-    ['#1A1A1A', '#C9A96E'],
-    ['#4A3728', '#dbbe93'],
-  ];
-  const [bg, text] = colors[brand.name.charCodeAt(0) % colors.length];
-
-  return (
-    <div
-      style={{
-        width: '56px',
-        height: '56px',
-        background: bg,
-        borderRadius: 'var(--radius-lg)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '1.125rem',
-        fontWeight: 800,
-        color: text,
-        letterSpacing: '-0.02em',
-        flexShrink: 0,
-      }}
-    >
-      {initials}
-    </div>
-  );
-}
-
 export function BrandsSection({ brands }: BrandsSectionProps) {
   return (
-    <section
-      className="section"
-      style={{ background: 'var(--color-surface-2)' }}
-      aria-labelledby="brands-heading"
-    >
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          style={{ textAlign: 'center', marginBottom: '2.5rem' }}
-        >
-          <p className="text-section-title" style={{ marginBottom: '0.75rem' }}>
-            Our Brands
+    <section style={{ backgroundColor: '#F7F5F0', padding: '4.5rem 0' }} aria-labelledby="brands-heading">
+      <div className="container" style={{ padding: '0 1.25rem' }}>
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <p
+            style={{
+              fontSize: '0.8125rem',
+              fontWeight: 700,
+              color: '#CFA85B',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              marginBottom: '0.5rem',
+            }}
+          >
+            OUR BRANDS
           </p>
-          <h2 id="brands-heading" className="text-heading-2">
-            Premium Eyewear Brands
+          <h2
+            id="brands-heading"
+            style={{
+              fontSize: 'clamp(1.5rem, 3vw, 2.125rem)',
+              fontWeight: 600,
+              color: '#0B1F3A',
+              letterSpacing: '-0.02em',
+              marginBottom: '0.5rem',
+            }}
+          >
+            The names behind your everyday vision.
           </h2>
-          <p style={{ color: 'var(--color-muted)', marginTop: '0.625rem', fontSize: '0.9375rem' }}>
-            Curated selection of the world&apos;s finest eyewear labels.
+          <p style={{ color: '#667085', fontSize: '0.9375rem', margin: 0 }}>
+            Curated precision eyewear crafted by verified international houses.
           </p>
-        </motion.div>
+        </div>
 
+        {/* Editorial Wordmark Grid */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '1rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
+            gap: '2rem 1.5rem',
+            textAlign: 'center',
           }}
-          className="brands-grid"
         >
           {brands.map((brand, i) => (
             <motion.div
               key={brand.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.07 }}
+              transition={{ duration: 0.35, delay: i * 0.05 }}
             >
               <Link
                 href={`/brands/${brand.slug}`}
@@ -97,65 +67,83 @@ export function BrandsSection({ brands }: BrandsSectionProps) {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '0.75rem',
-                  padding: '1.5rem 1rem',
-                  background: 'white',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 'var(--radius-xl)',
                   textDecoration: 'none',
-                  color: 'var(--color-text)',
+                  color: 'inherit',
+                  padding: '1.25rem 1rem',
+                  borderRadius: '6px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E8E5DF',
                   transition: 'all 0.2s ease',
                 }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-primary)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = 'var(--shadow-lg)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-border)';
-                  (e.currentTarget as HTMLElement).style.transform = '';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '';
-                }}
+                className="brand-editorial-card"
               >
-                <BrandLogo brand={brand} />
-                <div style={{ textAlign: 'center' }}>
-                  <p style={{ fontSize: '0.875rem', fontWeight: 700, marginBottom: '0.125rem' }}>
-                    {brand.name}
-                  </p>
-                  {brand.country && (
-                    <p style={{ fontSize: '0.75rem', color: 'var(--color-muted)' }}>
-                      {brand.country}
-                    </p>
-                  )}
-                </div>
+                {/* Brand Wordmark Styling */}
+                <span
+                  style={{
+                    fontSize: '1.25rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.04em',
+                    color: '#0B1F3A',
+                    marginBottom: '0.5rem',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {brand.name}
+                </span>
+
+                <div
+                  style={{
+                    width: '36px',
+                    height: '2px',
+                    backgroundColor: '#CFA85B',
+                    marginBottom: '0.5rem',
+                    transition: 'width 0.2s ease',
+                  }}
+                  className="brand-divider"
+                />
+
+                <span
+                  style={{
+                    fontSize: '0.75rem',
+                    color: '#667085',
+                    fontWeight: 500,
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  {brand.country}
+                </span>
               </Link>
             </motion.div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          style={{ textAlign: 'center', marginTop: '2.5rem' }}
-        >
-          <Link href="/brands" className="btn btn-outline">
-            View All Brands
+        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          <Link
+            href="/brands"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.375rem',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: '#0B1F3A',
+              textDecoration: 'none',
+              padding: '0.5rem 1rem',
+            }}
+          >
+            Explore Brand Directory <ArrowRight size={14} />
           </Link>
-        </motion.div>
+        </div>
       </div>
 
-      <style jsx>{`
-        @media (min-width: 640px) {
-          .brands-grid {
-            grid-template-columns: repeat(4, 1fr) !important;
-          }
+      <style jsx global>{`
+        .brand-editorial-card:hover {
+          border-color: #0B1F3A !important;
+          transform: translateY(-3px);
+          box-shadow: 0 10px 25px rgba(11, 31, 58, 0.08);
         }
-        @media (min-width: 1024px) {
-          .brands-grid {
-            grid-template-columns: repeat(6, 1fr) !important;
-          }
+        .brand-editorial-card:hover .brand-divider {
+          width: 54px !important;
         }
       `}</style>
     </section>

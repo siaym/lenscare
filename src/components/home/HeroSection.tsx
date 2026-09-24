@@ -3,58 +3,46 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export function HeroSection() {
   return (
     <section
-      className="hero"
       style={{
-        background: 'linear-gradient(135deg, #0B1F3A 0%, #1a3560 60%, #0B1F3A 100%)',
+        position: 'relative',
+        backgroundColor: '#0B1F3A',
+        color: '#FFFFFF',
+        overflow: 'hidden',
+        padding: '4.5rem 0',
       }}
     >
-      {/* Background decorative elements */}
+      {/* Subtle Ambient Radial Lighting (No tacky SaaS grid) */}
       <div
         style={{
           position: 'absolute',
-          inset: 0,
-          overflow: 'hidden',
+          top: '-15%',
+          right: '5%',
+          width: '550px',
+          height: '550px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(207, 168, 91, 0.12) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            top: '-20%',
-            right: '-10%',
-            width: '60%',
-            height: '140%',
-            background: 'radial-gradient(ellipse, rgba(201,169,110,0.12) 0%, transparent 70%)',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '-30%',
-            left: '-10%',
-            width: '50%',
-            height: '100%',
-            background: 'radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%)',
-          }}
-        />
-        {/* Grid pattern */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
-      </div>
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '-20%',
+          left: '-10%',
+          width: '500px',
+          height: '500px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(26, 53, 96, 0.4) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }}
+      />
 
-      <div className="container" style={{ position: 'relative', zIndex: 1, padding: '5rem 1.25rem' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 1, padding: '0 1.25rem' }}>
         <div
           style={{
             display: 'grid',
@@ -62,222 +50,208 @@ export function HeroSection() {
             gap: '3rem',
             alignItems: 'center',
           }}
-          className="hero-grid"
+          className="hero-layout"
         >
-          {/* Left — Copy */}
-          <div>
-            {/* Pre-heading */}
-            <motion.div
+          {/* Left Column — Editorial Story */}
+          <div style={{ maxWidth: '540px' }}>
+            {/* Category Marker */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              style={{
+                fontSize: '0.8125rem',
+                fontWeight: 700,
+                color: '#CFA85B',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                marginBottom: '1rem',
+              }}
+            >
+              PREMIUM EYEWEAR
+            </motion.p>
+
+            {/* Headline */}
+            <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                background: 'rgba(201,169,110,0.15)',
-                border: '1px solid rgba(201,169,110,0.3)',
-                borderRadius: '100px',
-                padding: '0.375rem 0.875rem',
-                marginBottom: '1.5rem',
+                fontSize: 'clamp(2.5rem, 5vw, 3.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.1,
+                letterSpacing: '-0.03em',
+                marginBottom: '1.25rem',
+                color: '#FFFFFF',
               }}
-            >
-              <Sparkles size={13} style={{ color: 'var(--color-accent)' }} />
-              <span style={{ fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: 600, letterSpacing: '0.06em' }}>
-                PREMIUM EYEWEAR — BANGLADESH
-              </span>
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-display"
-              style={{ color: 'white', marginBottom: '1.25rem' }}
             >
               See Better.
               <br />
-              <span style={{ color: 'var(--color-accent)' }}>Look Better.</span>
+              <span style={{ color: '#E3C783' }}>Look Better.</span>
             </motion.h1>
 
-            {/* Supporting text */}
+            {/* Subtitle */}
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               style={{
                 fontSize: '1.0625rem',
-                color: 'rgba(255,255,255,0.7)',
-                lineHeight: 1.7,
-                maxWidth: '440px',
-                marginBottom: '2.25rem',
+                lineHeight: 1.65,
+                color: 'rgba(255, 255, 255, 0.78)',
+                marginBottom: '2rem',
               }}
             >
-              Discover premium eyewear crafted for your style, comfort, and vision. Authentic brands. Expert prescription services.
+              Premium frames, prescription lenses, and authentic eyewear — delivered across Bangladesh with custom optical lab precision.
             </motion.p>
 
-            {/* CTAs */}
+            {/* Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45 }}
-              style={{ display: 'flex', gap: '0.875rem', flexWrap: 'wrap' }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}
             >
               <Link
                 href="/eyeglasses"
-                className="btn btn-accent btn-lg"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
-              >
-                Shop Eyeglasses
-                <ArrowRight size={17} />
-              </Link>
-              <Link
-                href="/sunglasses"
-                className="btn btn-lg"
                 style={{
-                  background: 'rgba(255,255,255,0.1)',
-                  color: 'white',
-                  border: '1.5px solid rgba(255,255,255,0.25)',
-                  backdropFilter: 'blur(4px)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  backgroundColor: '#CFA85B',
+                  color: '#07172B',
+                  padding: '0.875rem 1.625rem',
+                  borderRadius: '4px',
+                  fontWeight: 700,
+                  fontSize: '0.9375rem',
+                  textDecoration: 'none',
+                  letterSpacing: '0.02em',
+                  transition: 'background 0.15s ease',
                 }}
               >
-                Shop Sunglasses
+                Shop Eyeglasses
+                <ArrowRight size={16} />
+              </Link>
+
+              <Link
+                href="/sunglasses"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  padding: '0.875rem 1.625rem',
+                  borderRadius: '4px',
+                  fontWeight: 600,
+                  fontSize: '0.9375rem',
+                  textDecoration: 'none',
+                  transition: 'background 0.15s ease',
+                }}
+              >
+                Explore Sunglasses
               </Link>
             </motion.div>
 
-            {/* Trust badges */}
+            {/* Clean Proof Points — Subtle typographic divider */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               style={{
                 display: 'flex',
-                gap: '1.5rem',
-                marginTop: '2.5rem',
-                flexWrap: 'wrap',
+                alignItems: 'center',
+                gap: '1.75rem',
+                paddingTop: '1.5rem',
+                borderTop: '1px solid rgba(255, 255, 255, 0.12)',
               }}
             >
-              {[
-                { value: '5,000+', label: 'Happy Customers' },
-                { value: '200+', label: 'Frame Styles' },
-                { value: '10+', label: 'Premium Brands' },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-accent)' }}>
-                    {stat.value}
-                  </p>
-                  <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '0.125rem' }}>
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+              <div>
+                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>5,000+</p>
+                <p style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>Happy Customers</p>
+              </div>
+              <span style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255, 255, 255, 0.15)' }} />
+              <div>
+                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>200+</p>
+                <p style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>Frame Styles</p>
+              </div>
+              <span style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255, 255, 255, 0.15)' }} />
+              <div>
+                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>10+</p>
+                <p style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>Original Brands</p>
+              </div>
             </motion.div>
           </div>
 
-          {/* Right — Image */}
+          {/* Right Column — Editorial Eyewear Photograph */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             style={{ position: 'relative' }}
           >
             <div
               style={{
                 position: 'relative',
-                borderRadius: '1.5rem',
-                overflow: 'hidden',
                 aspectRatio: '4/3',
-                background: 'rgba(255,255,255,0.06)',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.35)',
               }}
             >
               <Image
                 src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=1200&q=85"
-                alt="Premium eyewear collection"
+                alt="LensCare Premium Eyewear Collection"
                 fill
                 priority
-                style={{ objectFit: 'cover', opacity: 0.9 }}
+                style={{ objectFit: 'cover' }}
                 sizes="(max-width: 1023px) 100vw, 50vw"
               />
-              {/* Gradient overlay */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(135deg, rgba(11,31,58,0.4) 0%, transparent 60%)',
+                  background: 'linear-gradient(to top, rgba(11, 31, 58, 0.45) 0%, transparent 60%)',
                 }}
               />
             </div>
 
-            {/* Floating card */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            {/* Single Refined Optical Badge */}
+            <div
               style={{
                 position: 'absolute',
-                bottom: '1.5rem',
-                left: '-1.5rem',
-                background: 'white',
-                borderRadius: 'var(--radius-xl)',
-                padding: '0.875rem 1.125rem',
-                boxShadow: 'var(--shadow-xl)',
+                bottom: '1.25rem',
+                left: '1.25rem',
+                backgroundColor: 'rgba(11, 31, 58, 0.88)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                borderRadius: '4px',
+                padding: '0.625rem 1rem',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.75rem',
+                gap: '0.625rem',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
               }}
             >
-              <div
-                style={{
-                  width: '2.5rem',
-                  height: '2.5rem',
-                  background: 'var(--color-surface-2)',
-                  borderRadius: 'var(--radius-lg)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.25rem',
-                }}
-              >
-                👓
-              </div>
+              <CheckCircle2 size={16} color="#CFA85B" />
               <div>
-                <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text)', whiteSpace: 'nowrap' }}>
+                <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#FFFFFF', margin: 0 }}>
                   Free Prescription Fitting
                 </p>
-                <p style={{ fontSize: '0.7rem', color: 'var(--color-muted)' }}>
-                  On all frame purchases
+                <p style={{ fontSize: '0.6875rem', color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
+                  Custom fitted in our Dhaka optical lab
                 </p>
               </div>
-            </motion.div>
-
-            {/* Free delivery badge */}
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-              style={{
-                position: 'absolute',
-                top: '1.5rem',
-                right: '-1rem',
-                background: 'var(--color-accent)',
-                color: 'var(--color-primary)',
-                borderRadius: 'var(--radius-xl)',
-                padding: '0.625rem 1rem',
-                boxShadow: 'var(--shadow-lg)',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              🚚 Free Delivery over ৳5,000
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
 
       <style jsx>{`
         @media (min-width: 1024px) {
-          .hero-grid {
-            grid-template-columns: 1fr 1fr !important;
+          .hero-layout {
+            grid-template-columns: 1.1fr 0.9fr !important;
           }
         }
       `}</style>

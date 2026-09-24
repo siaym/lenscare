@@ -8,27 +8,27 @@
 :root {
   /* Brand Colors */
   --color-primary: #0B1F3A;
-  --color-primary-light: #1a3560;
-  --color-primary-dark: #060f1c;
-  --color-accent: #C9A96E;
-  --color-accent-light: #dbbe93;
-  --color-accent-dark: #a8863e;
+  --color-primary-light: #162E52;
+  --color-primary-dark: #07172B;
+  --color-accent: #CFA85B;
+  --color-accent-light: #E3C783;
+  --color-accent-dark: #A8863E;
 
   /* Surface Colors */
-  --color-bg: #FAFAF8;
+  --color-bg: #FFFFFF;
   --color-surface: #FFFFFF;
-  --color-surface-2: #F5F3F0;
-  --color-surface-3: #EDEBE7;
+  --color-surface-2: #F7F5F0;
+  --color-surface-3: #EFECE6;
 
   /* Border */
-  --color-border: #E4E0DA;
-  --color-border-light: #EEE9E3;
+  --color-border: #E8E5DF;
+  --color-border-light: #F2EFEA;
 
   /* Text */
-  --color-text: #1A1A1A;
-  --color-text-secondary: #4A4A4A;
-  --color-muted: #6B6B6B;
-  --color-subtle: #9A9A9A;
+  --color-text: #111827;
+  --color-text-secondary: #374151;
+  --color-muted: #667085;
+  --color-subtle: #9CA3AF;
 
   /* Status */
   --color-success: #2D7A4F;
@@ -373,18 +373,18 @@ body {
 }
 
 .section {
-  padding: 4rem 0;
+  padding: 3rem 0;
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 5rem 0;
+    padding: 3.5rem 0;
   }
 }
 
 @media (min-width: 1024px) {
   .section {
-    padding: 6rem 0;
+    padding: 4rem 0;
   }
 }
 

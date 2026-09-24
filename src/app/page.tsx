@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { HeroSection } from '@/components/home/HeroSection';
 import { ProductCarouselSection } from '@/components/home/ProductCarouselSection';
 import { ShopByShapeSection } from '@/components/home/ShopByShapeSection';
+import { FindYourFrameSection } from '@/components/home/FindYourFrameSection';
 import { TrustSection } from '@/components/home/TrustSection';
 import { BrandsSection } from '@/components/home/BrandsSection';
 import { NewsletterSection } from '@/components/home/NewsletterSection';
@@ -10,106 +11,85 @@ import {
   EYEGLASSES,
   SUNGLASSES,
   NEW_ARRIVALS,
-  PREORDERS,
   SHAPES,
   BRANDS,
 } from '@/lib/data/mockData';
 
 export const metadata: Metadata = {
-  title: 'LensCare — See Better. Look Better.',
+  title: 'LensCare — See Better. Look Better. | Premium Eyewear Bangladesh',
   description:
-    "Bangladesh's premium eyewear destination. Shop prescription eyeglasses, designer sunglasses, progressive lenses and more. Fast delivery. Authentic brands.",
+    "Bangladesh's premium eyewear brand. Authentic prescription eyeglasses, polarized sunglasses, and optical lab precision lenses delivered nationwide.",
 };
 
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero */}
+      {/* 1. Hero: See Better. Look Better. */}
       <HeroSection />
 
-      {/* 2. Best Sellers */}
+      {/* 2. Best Sellers: Immediate shopping priority (White) */}
       <ProductCarouselSection
         id="best-sellers"
         title="Best Sellers"
-        subtitle="Our most-loved frames, chosen by thousands of happy customers."
+        subtitle="Our most-loved silhouettes, chosen by everyday professionals."
         products={BEST_SELLERS}
         viewAllHref="/shop?sort=best-selling"
-        viewAllLabel="View All Best Sellers"
-        bg="var(--color-bg)"
+        viewAllLabel="View Best Sellers"
+        bg="#FFFFFF"
       />
 
-      {/* 3. Eyeglasses by Shape */}
+      {/* 3. Shop by Shape: Visual Discovery (Warm Ivory #F7F5F0) */}
       <ShopByShapeSection
-        title="Shop Eyeglasses by Shape"
-        subtitle="Find your perfect frame silhouette."
-        shapes={SHAPES.filter((s) => s.type === 'BOTH' || s.type === 'EYEGLASSES')}
-        basePath="/eyeglasses"
-        bg="var(--color-surface-2)"
+        title="BROWSE BY FRAME SHAPE"
+        subtitle="Find the silhouette that fits you."
+        shapes={SHAPES}
+        basePath="/shop"
+        bg="#F7F5F0"
       />
 
-      {/* 4. Prescription Eyeglasses */}
+      {/* 4. Prescription Eyeglasses: Core Optical Category (White) */}
       <ProductCarouselSection
         id="eyeglasses"
         title="Prescription Eyeglasses"
-        subtitle="Premium frames ready for your prescription lenses."
+        subtitle="Precision frames ready for single vision, bifocal, and progressive lenses."
         products={EYEGLASSES}
         viewAllHref="/eyeglasses"
-        viewAllLabel="Browse All Eyeglasses"
-        bg="var(--color-bg)"
+        viewAllLabel="Shop All Eyeglasses"
+        bg="#FFFFFF"
       />
 
-      {/* 5. Sunglasses by Shape */}
-      <ShopByShapeSection
-        title="Shop Sunglasses by Shape"
-        subtitle="Choose your style. Protect your eyes."
-        shapes={SHAPES.filter((s) => s.type === 'BOTH' || s.type === 'SUNGLASSES')}
-        basePath="/sunglasses"
-        bg="var(--color-surface-2)"
-      />
+      {/* 5. Editorial Feature: Find Your Frame Guided Fit */}
+      <FindYourFrameSection />
 
-      {/* 6. Sunglasses */}
+      {/* 6. Sunglasses: Lifestyle & Sun Protection (Subtle Warm #FAFAF8) */}
       <ProductCarouselSection
         id="sunglasses"
         title="Sunglasses"
-        subtitle="Polarized, UV400, and endlessly stylish."
+        subtitle="Polarized optics, UV400 filtering, and refined summer silhouettes."
         products={SUNGLASSES}
         viewAllHref="/sunglasses"
-        viewAllLabel="Browse All Sunglasses"
-        bg="var(--color-bg)"
+        viewAllLabel="Explore Sunglasses"
+        bg="#FAFAF8"
       />
 
-      {/* 7. New Arrivals */}
+      {/* 7. New Arrivals: Fresh Inventory (White) */}
       <ProductCarouselSection
         id="new-arrivals"
         title="New Arrivals"
-        subtitle="Fresh styles just landed."
+        subtitle="Freshly crafted styles just landed in our catalog."
         products={NEW_ARRIVALS}
         viewAllHref="/shop?sort=newest"
-        viewAllLabel="See All New Arrivals"
-        bg="var(--color-surface-2)"
+        viewAllLabel="See New Arrivals"
+        bg="#FFFFFF"
       />
 
-      {/* 8. Pre-Order */}
-      {PREORDERS.length > 0 && (
-        <ProductCarouselSection
-          id="pre-order"
-          title="Pre-Order"
-          subtitle="Reserve exclusive styles before they arrive."
-          products={PREORDERS}
-          viewAllHref="/pre-order"
-          viewAllLabel="View All Pre-Orders"
-          bg="var(--color-primary)"
-          dark
-        />
-      )}
-
-      {/* 9. Brands */}
+      {/* 8. Brands: Editorial Directory (Warm Ivory #F7F5F0) */}
       <BrandsSection brands={BRANDS.filter((b) => b.featured)} />
 
-      {/* 10. Why Choose Us */}
+      {/* 9. Why LensCare: Optical Craftsmanship & Delivery Trust (White) */}
       <TrustSection />
 
-      {/* 11. Newsletter */}
+      {/* 10. Newsletter: Retention (Deep Navy #07172B) */}
       <NewsletterSection />
     </>
   );
