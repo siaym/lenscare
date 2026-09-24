@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,12 +18,27 @@ interface QuickViewModalProps {
 }
 
 export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps) {
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const { addItem } = useCart();
   const { success } = useToast();
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [added, setAdded] = useState(false);
 
-  if (!product) return null;
+  // Close on Escape
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  if (!mounted || !product) return null;
 
   const effectivePrice = getEffectivePrice(product);
   const onSale = isOnSale(product);
@@ -47,10 +63,20 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
     setTimeout(() => setAdded(false), 2000);
   };
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 1200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1.5rem',
+          }}
+        >
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -60,26 +86,26 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             style={{
               position: 'fixed',
               inset: 0,
-              backgroundColor: 'rgba(7, 23, 43, 0.65)',
-              backdropFilter: 'blur(3px)',
+              backgroundColor: 'rgba(7, 23, 43, 0.72)',
+              backdropFilter: 'blur(4px)',
             }}
           />
 
-          {/* Dialog Container */}
+          {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 12 }}
-            transition={{ type: 'tween', duration: 0.2 }}
+            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '820px',
+              maxWidth: '840px',
               backgroundColor: '#FFFFFF',
               borderRadius: '8px',
-              boxShadow: '0 25px 50px -12px rgba(11, 31, 58, 0.25)',
+              boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.35)',
               overflow: 'hidden',
-              zIndex: 1201,
+              zIndex: 10000,
             }}
           >
             {/* Close Button */}
@@ -89,7 +115,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                 position: 'absolute',
                 top: '1rem',
                 right: '1rem',
-                background: '#F7F5F0',
+                backgroundColor: '#F7F5F0',
                 border: 'none',
                 borderRadius: '50%',
                 width: '36px',
@@ -102,31 +128,31 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                 zIndex: 10,
                 transition: 'background 0.15s ease',
               }}
-              aria-label="Close dialog"
+              aria-label="Close Quick View"
             >
               <X size={18} />
             </button>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
               {/* Product Image Side */}
               <div
                 style={{
                   position: 'relative',
                   backgroundColor: '#F7F5F0',
                   aspectRatio: '1/1',
-                  minHeight: '340px',
+                  minHeight: '350px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: '2rem',
+                  padding: '2.5rem',
                 }}
               >
                 <Image
                   src={primaryImage}
                   alt={product.name}
                   fill
-                  style={{ objectFit: 'contain', padding: '1.5rem' }}
-                  sizes="(max-width: 768px) 100vw, 400px"
+                  style={{ objectFit: 'contain', padding: '1.75rem' }}
+                  sizes="(max-width: 768px) 100vw, 420px"
                 />
                 {onSale && (
                   <span
@@ -134,10 +160,10 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                       position: 'absolute',
                       top: '1.25rem',
                       left: '1.25rem',
-                      background: '#0B1F3A',
+                      backgroundColor: '#0B1F3A',
                       color: '#FFFFFF',
                       fontSize: '0.75rem',
-                      fontWeight: 600,
+                      fontWeight: 700,
                       letterSpacing: '0.04em',
                       padding: '0.25rem 0.625rem',
                       borderRadius: '2px',
@@ -148,13 +174,13 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                 )}
               </div>
 
-              {/* Product Info Side */}
-              <div style={{ padding: '2rem 2.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              {/* Product Details Side */}
+              <div style={{ padding: '2.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                   {product.brand && (
-                    <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#CFA85B', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.375rem' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#CFA85B', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.375rem' }}>
                       {product.brand.name}
-                    </p>
+                    </span>
                   )}
                   <h2 style={{ fontSize: '1.375rem', fontWeight: 600, color: '#111827', lineHeight: 1.25, marginBottom: '0.75rem' }}>
                     {product.name}
@@ -172,11 +198,11 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                     )}
                   </div>
 
-                  <p style={{ fontSize: '0.875rem', color: '#667085', lineHeight: 1.5, marginBottom: '1.5rem' }}>
+                  <p style={{ fontSize: '0.875rem', color: '#667085', lineHeight: 1.6, marginBottom: '1.5rem' }}>
                     {product.description}
                   </p>
 
-                  {/* Frame Specs Pill */}
+                  {/* Dimensions specs */}
                   {product.dimensions && (
                     <div style={{ display: 'flex', gap: '1rem', padding: '0.625rem 0.875rem', backgroundColor: '#F7F5F0', borderRadius: '4px', marginBottom: '1.5rem', fontSize: '0.75rem', color: '#374151' }}>
                       <span>Lens: <strong>{product.dimensions.lensWidth}mm</strong></span>
@@ -185,7 +211,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                     </div>
                   )}
 
-                  {/* Color Swatches */}
+                  {/* Color selector */}
                   {product.variants && product.variants.length > 0 && (
                     <div style={{ marginBottom: '1.75rem' }}>
                       <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#111827', marginBottom: '0.5rem' }}>
@@ -208,7 +234,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                               padding: 0,
                             }}
                             title={v.color}
-                            aria-label={`Select color ${v.color}`}
+                            aria-label={`Select ${v.color}`}
                           />
                         ))}
                       </div>
@@ -218,43 +244,42 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
 
                 {/* Actions */}
                 <div>
-                  <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem' }}>
-                    <button
-                      type="button"
-                      onClick={handleAddToCart}
-                      disabled={isOutOfStock}
-                      style={{
-                        flex: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.5rem',
-                        backgroundColor: added ? '#2D7A4F' : '#0B1F3A',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        padding: '0.875rem 1.25rem',
-                        borderRadius: '4px',
-                        fontSize: '0.875rem',
-                        fontWeight: 600,
-                        letterSpacing: '0.03em',
-                        cursor: isOutOfStock ? 'not-allowed' : 'pointer',
-                        opacity: isOutOfStock ? 0.6 : 1,
-                        transition: 'all 0.2s ease',
-                      }}
-                    >
-                      {added ? (
-                        <>
-                          <Check size={16} />
-                          Added ✓
-                        </>
-                      ) : (
-                        <>
-                          <ShoppingBag size={16} />
-                          {isOutOfStock ? 'Out of Stock' : product.preorder ? 'Pre-Order Now' : 'Add to Bag'}
-                        </>
-                      )}
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    disabled={isOutOfStock}
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      backgroundColor: added ? '#2D7A4F' : '#0B1F3A',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      padding: '0.875rem 1.25rem',
+                      borderRadius: '4px',
+                      fontSize: '0.875rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.03em',
+                      cursor: isOutOfStock ? 'not-allowed' : 'pointer',
+                      opacity: isOutOfStock ? 0.6 : 1,
+                      marginBottom: '1rem',
+                      transition: 'all 0.15s ease',
+                    }}
+                  >
+                    {added ? (
+                      <>
+                        <Check size={16} />
+                        Added ✓
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingBag size={16} />
+                        {isOutOfStock ? 'Out of Stock' : product.preorder ? 'Pre-Order Now' : 'Add to Bag'}
+                      </>
+                    )}
+                  </button>
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.75rem', borderTop: '1px solid #F2EFEA' }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', fontSize: '0.75rem', color: '#667085' }}>
@@ -286,4 +311,6 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
       )}
     </AnimatePresence>
   );
+
+  return createPortal(modalContent, document.body);
 }

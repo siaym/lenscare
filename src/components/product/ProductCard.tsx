@@ -111,6 +111,7 @@ export function ProductCard({
               style={{
                 objectFit: 'contain',
                 padding: '1.25rem',
+                mixBlendMode: 'multiply',
                 opacity: isHovered && secondaryImage ? 0 : 1,
                 transform: isHovered ? 'scale(1.03)' : 'scale(1)',
                 transition: 'opacity 0.35s ease, transform 0.4s ease',

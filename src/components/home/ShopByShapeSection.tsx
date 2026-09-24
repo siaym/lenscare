@@ -8,13 +8,13 @@ import type { Shape } from '@/types';
 
 // Curated high-resolution optical frame cutouts for each shape
 const SHAPE_IMAGES: Record<string, string> = {
-  rectangle: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=400&q=80',
-  round: 'https://images.unsplash.com/photo-1577803645773-f96470509666?w=400&q=80',
-  'cat-eye': 'https://images.unsplash.com/photo-1485875437342-9b39470b3d95?w=400&q=80',
-  aviator: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=400&q=80',
-  geometric: 'https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=400&q=80',
+  rectangle: '/images/products/glasses_rectangle.jpg',
+  round: '/images/products/glasses_round_gold.jpg',
+  'cat-eye': '/images/products/glasses_cateye.jpg',
+  aviator: 'https://images.unsplash.com/photo-1508296695146-257a814070b4?w=400&q=80',
+  geometric: '/images/products/glasses_rectangle.jpg',
   clubmaster: 'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=400&q=80',
-  square: 'https://images.unsplash.com/photo-1502767089025-6572583495f9?w=400&q=80',
+  square: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80',
 };
 
 interface ShopByShapeSectionProps {

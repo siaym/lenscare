@@ -31,21 +31,21 @@ export const SHAPES: Shape[] = [
 
 // High-resolution verified eyewear images
 const IMAGES = {
-  // Clean Isolated Product Frames (Primary)
-  f_rect_black: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=80',
-  f_round_gold: 'https://images.unsplash.com/photo-1577803645773-f96470509666?w=800&q=80',
-  f_cateye_tit: 'https://images.unsplash.com/photo-1485875437342-9b39470b3d95?w=800&q=80',
-  f_aviator_opt: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=800&q=80',
-  f_geo_tr90: 'https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=800&q=80',
+  // Clean Isolated Product Frames (Primary) — 100% Eyewear Guaranteed
+  f_rect_black: '/images/products/glasses_rectangle.jpg',
+  f_round_gold: '/images/products/glasses_round_gold.jpg',
+  f_cateye_tit: '/images/products/glasses_cateye.jpg',
+  f_aviator_opt: 'https://images.unsplash.com/photo-1508296695146-257a814070b4?w=800&q=80',
+  f_geo_tr90: '/images/products/glasses_rectangle.jpg',
   f_club_ace: 'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=800&q=80',
-  f_square_met: 'https://images.unsplash.com/photo-1502767089025-6572583495f9?w=800&q=80',
-  f_rimless_tit: 'https://images.unsplash.com/photo-1584030373081-f37b7bb4fa8e?w=800&q=80',
+  f_square_met: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=80',
+  f_rimless_tit: '/images/products/glasses_round_gold.jpg',
   s_aviator_pro: 'https://images.unsplash.com/photo-1508296695146-257a814070b4?w=800&q=80',
   s_rect_wrap: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&q=80',
   s_cateye_glam: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=800&q=80',
   s_round_retro: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=80',
-  s_square_pol: 'https://images.unsplash.com/photo-1589782182703-2aaa69037b5b?w=800&q=80',
-  s_preorder_nov: 'https://images.unsplash.com/photo-1582142306909-195724d33ffc?w=800&q=80',
+  s_square_pol: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&q=80',
+  s_preorder_nov: '/images/products/glasses_round_gold.jpg',
   s_preorder_zen: 'https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=800&q=80',
 
   // Editorial Lifestyle / Models wearing the frames (Secondary)
