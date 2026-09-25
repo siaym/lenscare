@@ -43,7 +43,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
   const effectivePrice = getEffectivePrice(product);
   const onSale = isOnSale(product);
   const discount = onSale ? calculateDiscount(product.price, product.salePrice!) : 0;
-  const primaryImage = product.images[0]?.url || '/placeholder.jpg';
+  const primaryImage = product.images[0]?.url || '/images/products/glasses_rectangle.jpg';
   const isOutOfStock = product.stock === 0 && !product.preorder;
   const currentVariant = product.variants?.[selectedVariantIndex];
 
@@ -66,173 +66,105 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
   const modalContent = (
     <AnimatePresence>
       {isOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '1.5rem',
-          }}
-        >
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              backgroundColor: 'rgba(7, 23, 43, 0.72)',
-              backdropFilter: 'blur(4px)',
-            }}
+            className="fixed inset-0 bg-[#07172B]/75 backdrop-blur-xs"
           />
 
           {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '840px',
-              backgroundColor: '#FFFFFF',
-              borderRadius: '8px',
-              boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.35)',
-              overflow: 'hidden',
-              zIndex: 10000,
-            }}
+            className="relative w-full max-w-3xl bg-white shadow-2xl overflow-hidden z-[10000] border border-[#EBE8E0]"
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              style={{
-                position: 'absolute',
-                top: '1rem',
-                right: '1rem',
-                backgroundColor: '#F7F5F0',
-                border: 'none',
-                borderRadius: '50%',
-                width: '36px',
-                height: '36px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: '#111827',
-                zIndex: 10,
-                transition: 'background 0.15s ease',
-              }}
+              className="absolute top-4 right-4 bg-[#F8F7F4] hover:bg-[#EFECE6] text-[#0A192F] w-9 h-9 flex items-center justify-center rounded-full z-20 transition-colors"
               aria-label="Close Quick View"
             >
-              <X size={18} />
+              <X size={17} />
             </button>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Product Image Side */}
-              <div
-                style={{
-                  position: 'relative',
-                  backgroundColor: '#F7F5F0',
-                  aspectRatio: '1/1',
-                  minHeight: '350px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '2.5rem',
-                }}
-              >
+              <div className="relative bg-[#F8F7F4] aspect-square min-h-[320px] flex items-center justify-center p-8">
                 <Image
                   src={primaryImage}
                   alt={product.name}
                   fill
-                  style={{ objectFit: 'contain', padding: '1.75rem' }}
+                  className="object-contain p-8 mix-blend-multiply"
                   sizes="(max-width: 768px) 100vw, 420px"
                 />
                 {onSale && (
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: '1.25rem',
-                      left: '1.25rem',
-                      backgroundColor: '#0B1F3A',
-                      color: '#FFFFFF',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.04em',
-                      padding: '0.25rem 0.625rem',
-                      borderRadius: '2px',
-                    }}
-                  >
-                    {discount}% OFF
+                  <span className="absolute top-4 left-4 bg-[#0A192F] text-white text-[10px] uppercase tracking-[0.16em] font-medium px-2.5 py-1">
+                    {discount}% Off
                   </span>
                 )}
               </div>
 
               {/* Product Details Side */}
-              <div style={{ padding: '2.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div className="p-8 sm:p-10 flex flex-col justify-between">
                 <div>
                   {product.brand && (
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#CFA85B', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.375rem' }}>
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] block mb-2">
                       {product.brand.name}
                     </span>
                   )}
-                  <h2 style={{ fontSize: '1.375rem', fontWeight: 600, color: '#111827', lineHeight: 1.25, marginBottom: '0.75rem' }}>
+                  <h2 className="font-serif text-2xl font-light text-[#0A192F] leading-snug mb-3">
                     {product.name}
                   </h2>
 
                   {/* Price */}
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.25rem' }}>
-                    <span style={{ fontSize: '1.375rem', fontWeight: 700, color: '#0B1F3A' }}>
+                  <div className="flex items-baseline gap-3 mb-4">
+                    <span className="text-xl font-semibold text-[#0A192F]">
                       {formatPrice(effectivePrice)}
                     </span>
                     {onSale && (
-                      <span style={{ fontSize: '0.9375rem', color: '#9CA3AF', textDecoration: 'line-through' }}>
+                      <span className="text-sm text-[#8C95A3] line-through font-normal">
                         {formatPrice(product.price)}
                       </span>
                     )}
                   </div>
 
-                  <p style={{ fontSize: '0.875rem', color: '#667085', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                  <p className="text-xs sm:text-sm text-[#4A5568] leading-relaxed mb-6 font-normal line-clamp-3">
                     {product.description}
                   </p>
 
                   {/* Dimensions specs */}
                   {product.dimensions && (
-                    <div style={{ display: 'flex', gap: '1rem', padding: '0.625rem 0.875rem', backgroundColor: '#F7F5F0', borderRadius: '4px', marginBottom: '1.5rem', fontSize: '0.75rem', color: '#374151' }}>
-                      <span>Lens: <strong>{product.dimensions.lensWidth}mm</strong></span>
-                      <span>Bridge: <strong>{product.dimensions.bridgeWidth}mm</strong></span>
-                      <span>Temple: <strong>{product.dimensions.templeLength}mm</strong></span>
+                    <div className="flex items-center gap-4 py-2.5 px-3.5 bg-[#FAF9F5] border border-[#EFECE6] mb-6 text-xs text-[#4A5568]">
+                      <span>Lens: <strong className="text-[#0A192F]">{product.dimensions.lensWidth}mm</strong></span>
+                      <span>Bridge: <strong className="text-[#0A192F]">{product.dimensions.bridgeWidth}mm</strong></span>
+                      <span>Temple: <strong className="text-[#0A192F]">{product.dimensions.templeLength}mm</strong></span>
                     </div>
                   )}
 
                   {/* Color selector */}
                   {product.variants && product.variants.length > 0 && (
-                    <div style={{ marginBottom: '1.75rem' }}>
-                      <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#111827', marginBottom: '0.5rem' }}>
-                        Color: <span style={{ fontWeight: 400, color: '#667085' }}>{currentVariant?.color}</span>
+                    <div className="mb-6">
+                      <label className="block text-xs font-medium text-[#0A192F] mb-2">
+                        Color: <span className="font-normal text-[#667085]">{currentVariant?.color}</span>
                       </label>
-                      <div style={{ display: 'flex', gap: '0.625rem' }}>
+                      <div className="flex gap-2">
                         {product.variants.map((v, i) => (
                           <button
                             key={v.id}
                             type="button"
                             onClick={() => setSelectedVariantIndex(i)}
-                            style={{
-                              width: '26px',
-                              height: '26px',
-                              borderRadius: '50%',
-                              backgroundColor: v.colorCode,
-                              border: selectedVariantIndex === i ? '2px solid #0B1F3A' : '1px solid #E8E5DF',
-                              boxShadow: selectedVariantIndex === i ? '0 0 0 2px #FFFFFF inset' : 'none',
-                              cursor: 'pointer',
-                              padding: 0,
-                            }}
+                            className={`w-6 h-6 rounded-full transition-all ${
+                              selectedVariantIndex === i
+                                ? 'ring-2 ring-offset-2 ring-[#0A192F]'
+                                : 'border border-black/10'
+                            }`}
+                            style={{ backgroundColor: v.colorCode }}
                             title={v.color}
                             aria-label={`Select ${v.color}`}
                           />
@@ -248,59 +180,39 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                     type="button"
                     onClick={handleAddToCart}
                     disabled={isOutOfStock}
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.5rem',
-                      backgroundColor: added ? '#2D7A4F' : '#0B1F3A',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      padding: '0.875rem 1.25rem',
-                      borderRadius: '4px',
-                      fontSize: '0.875rem',
-                      fontWeight: 600,
-                      letterSpacing: '0.03em',
-                      cursor: isOutOfStock ? 'not-allowed' : 'pointer',
-                      opacity: isOutOfStock ? 0.6 : 1,
-                      marginBottom: '1rem',
-                      transition: 'all 0.15s ease',
-                    }}
+                    className={`w-full flex items-center justify-center gap-2 py-3.5 text-xs uppercase tracking-[0.16em] font-medium transition-colors mb-3 ${
+                      added
+                        ? 'bg-[#2D7A4F] text-white'
+                        : isOutOfStock
+                        ? 'bg-[#E5E2DB] text-[#8C95A3] cursor-not-allowed'
+                        : 'bg-[#0A192F] hover:bg-[#162E52] text-white'
+                    }`}
                   >
                     {added ? (
                       <>
-                        <Check size={16} />
-                        Added ✓
+                        <Check size={14} className="text-[#C5A880]" />
+                        <span>Added to Bag</span>
                       </>
                     ) : (
                       <>
-                        <ShoppingBag size={16} />
-                        {isOutOfStock ? 'Out of Stock' : product.preorder ? 'Pre-Order Now' : 'Add to Bag'}
+                        <ShoppingBag size={14} />
+                        <span>{isOutOfStock ? 'Sold Out' : product.preorder ? 'Pre-Order Now' : 'Add to Bag'}</span>
                       </>
                     )}
                   </button>
 
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.75rem', borderTop: '1px solid #F2EFEA' }}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', fontSize: '0.75rem', color: '#667085' }}>
-                      <ShieldCheck size={14} color="#CFA85B" />
-                      100% Authentic Eyewear
+                  <div className="flex items-center justify-between pt-3 border-t border-[#EFECE6] text-xs">
+                    <span className="flex items-center gap-1.5 text-[#7C8797]">
+                      <ShieldCheck size={13} className="text-[#C5A880]" />
+                      Authentic Optical Verification
                     </span>
 
                     <Link
                       href={`/products/${product.slug}`}
                       onClick={onClose}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem',
-                        fontSize: '0.8125rem',
-                        fontWeight: 600,
-                        color: '#0B1F3A',
-                        textDecoration: 'none',
-                      }}
+                      className="inline-flex items-center gap-1 text-[#0A192F] hover:text-[#C5A880] font-medium transition-colors"
                     >
-                      Full Details <ArrowRight size={13} />
+                      Full Details <ArrowRight size={12} />
                     </Link>
                   </div>
                 </div>

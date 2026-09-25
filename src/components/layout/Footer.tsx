@@ -23,47 +23,30 @@ const WhatsAppIcon = () => (
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: '#07172B', color: '#FFFFFF', padding: '4.5rem 0 2rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-      <div className="container" style={{ padding: '0 1.25rem' }}>
+    <footer className="bg-[#07172B] text-white pt-20 pb-10 border-t border-white/10 font-normal">
+      <div className="container mx-auto px-5 lg:px-12">
         {/* Main Grid: Brand Column + 3 Link Columns */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '3rem 2rem',
-            paddingBottom: '3.5rem',
-          }}
-        >
-          {/* Brand Intro Column */}
-          <div style={{ maxWidth: '320px' }}>
-            <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '1.25rem' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-16">
+          {/* Brand Intro Column (2 cols on lg) */}
+          <div className="lg:col-span-2 max-w-sm">
+            <Link href="/" className="inline-block mb-5 no-underline">
               <span className="font-serif text-2xl tracking-[0.14em] font-light text-white uppercase">
                 Lens<span className="font-normal text-[#C5A880]">Care</span>
               </span>
             </Link>
 
-            <p style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.65)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-              Premium eyewear for modern Bangladesh. Authentic frames, optical lab precision, and verified nationwide delivery.
+            <p className="text-xs sm:text-sm text-white/65 leading-relaxed mb-6 font-normal">
+              Architectural eyewear tailored for modern Bangladesh. Authentic frames, optical lab precision, and verified nationwide delivery.
             </p>
 
             {/* Social Links */}
-            <div style={{ display: 'flex', gap: '0.625rem' }}>
+            <div className="flex items-center gap-2.5">
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  textDecoration: 'none',
-                }}
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
               >
                 <FacebookIcon />
               </a>
@@ -72,17 +55,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  textDecoration: 'none',
-                }}
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
               >
                 <InstagramIcon />
               </a>
@@ -91,17 +64,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  textDecoration: 'none',
-                }}
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
               >
                 <WhatsAppIcon />
               </a>
@@ -110,67 +73,67 @@ export function Footer() {
 
           {/* Column 1: SHOP */}
           <div>
-            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-              SHOP
+            <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] mb-5">
+              Shop
             </p>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <ul className="space-y-3 text-xs">
               <li>
-                <Link href="/eyeglasses" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                <Link href="/eyeglasses" className="text-white/70 hover:text-white transition-colors">
                   Eyeglasses
                 </Link>
               </li>
               <li>
-                <Link href="/sunglasses" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                <Link href="/sunglasses" className="text-white/70 hover:text-white transition-colors">
                   Sunglasses
                 </Link>
               </li>
               <li>
-                <Link href="/brands" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                <Link href="/brands" className="text-white/70 hover:text-white transition-colors">
                   Brands
                 </Link>
               </li>
               <li>
-                <Link href="/pre-order" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                <Link href="/pre-order" className="text-white/70 hover:text-white transition-colors">
                   Pre-Order
                 </Link>
               </li>
               <li>
-                <Link href="/shop" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
-                  All Eyewear
+                <Link href="/shop" className="text-white/70 hover:text-white transition-colors">
+                  Complete Catalog
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: HELP */}
+          {/* Column 2: HELP & SUPPORT */}
           <div>
-            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-              HELP
+            <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] mb-5">
+              Support
             </p>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <ul className="space-y-3 text-xs">
               <li>
-                <Link href="/contact" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
-                  Contact Us
+                <Link href="/track-order" className="text-white/70 hover:text-white transition-colors">
+                  Track Optical Order
                 </Link>
               </li>
               <li>
-                <Link href="/track-order" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
-                  Track Order
+                <Link href="/account/prescriptions" className="text-white/70 hover:text-white transition-colors">
+                  Upload Prescription
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                <Link href="/shipping" className="text-white/70 hover:text-white transition-colors">
                   Shipping & Courier
                 </Link>
               </li>
               <li>
-                <Link href="/returns" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
-                  7-Day Returns
+                <Link href="/returns" className="text-white/70 hover:text-white transition-colors">
+                  7-Day Fit Guarantee
                 </Link>
               </li>
               <li>
-                <Link href="/faq" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
-                  Prescription FAQ
+                <Link href="/faq" className="text-white/70 hover:text-white transition-colors">
+                  Optical Lens FAQ
                 </Link>
               </li>
             </ul>
@@ -178,32 +141,32 @@ export function Footer() {
 
           {/* Column 3: COMPANY */}
           <div>
-            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#CFA85B', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-              COMPANY
+            <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5A880] mb-5">
+              Company
             </p>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <ul className="space-y-3 text-xs">
               <li>
-                <Link href="/about" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                <Link href="/about" className="text-white/70 hover:text-white transition-colors">
                   About LensCare
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                <Link href="/privacy" className="text-white/70 hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                <Link href="/terms" className="text-white/70 hover:text-white transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/refund" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
-                  Refund Guarantee
+                <Link href="/refund" className="text-white/70 hover:text-white transition-colors">
+                  Refund Policy
                 </Link>
               </li>
               <li>
-                <Link href="/admin" style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.5)', textDecoration: 'none' }}>
+                <Link href="/admin" className="text-white/40 hover:text-white/70 transition-colors">
                   Admin Portal
                 </Link>
               </li>
@@ -212,23 +175,11 @@ export function Footer() {
         </div>
 
         {/* Bottom Legal / Payment Strip */}
-        <div
-          style={{
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-            paddingTop: '2rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '1rem',
-          }}
-        >
-          <p style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.5)', margin: 0 }}>
-            © {new Date().getFullYear()} LensCare Optical Systems. All rights reserved.
-          </p>
+        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
+          <p>© {new Date().getFullYear()} LensCare Optical Systems. All rights reserved.</p>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)' }}>
-            <span>SSLCommerz Secured</span>
+          <div className="flex items-center gap-3 text-[11px] text-white/60">
+            <span>SSLCommerz Verified</span>
             <span>•</span>
             <span>bKash</span>
             <span>•</span>

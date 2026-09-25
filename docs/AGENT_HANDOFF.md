@@ -14,7 +14,7 @@ COMPLETED
 2. **Editorial Campaign Hero (`src/components/home/HeroSection.tsx`)**:
    - Replaced marketing dashboard structure (statistics counters, SaaS grid lines, multiple floating badges) with an authentic fashion editorial hero.
    - Narrative: `LENSCARE · AUTUMN / WINTER 2026`, *"See the Difference."*, with architectural subtext and dual minimalist CTAs (`Explore Collection →`, `Prescription Eyeglasses →`).
-   - Large portrait editorial photograph of a model wearing optical eyewear with subtle museum-grade framing and corner caption.
+   - Large portrait editorial photograph of a model wearing optical eyewear with museum-grade framing and corner caption.
 3. **New Collection Editorial Spotlight (`src/components/home/NewCollectionSection.tsx`)**:
    - Created asymmetrical presentation: Left column showcases "The Pure Titanium Edition" (aerospace-grade Japanese titanium, 11.4g, Fukui origin), paired with 3 large borderless product presentations.
 4. **Signature Visual Frame Silhouettes (`src/components/home/ShopByShapeSection.tsx`)**:
@@ -25,19 +25,24 @@ COMPLETED
    - Primary isolated frame shot on `#F8F7F4` with smooth hover crossfade to lifestyle model wearing the glasses.
    - Slide-up bottom `[ ADD TO BAG ]` bar with instant feedback, centered `Quick View` overlay trigger, and top-right Wishlist heart.
    - Zero fake review stars or artificial customer counts.
-6. **Compact Best Sellers Rail (`src/components/home/BestSellersRail.tsx`)**:
+6. **100% Clean Isolated Product Photography System (`src/lib/data/mockData.ts`)**:
+   - Downloaded and placed studio isolated frames directly in `public/images/products/` (`glasses_rectangle.jpg`, `glasses_round_gold.jpg`, `glasses_cateye.jpg`, `glasses_tortoise_square.jpg`, `sunglasses_black_luxury.jpg`, `sunglasses_round_retro.jpg`, `sunglasses_aviator_gold.jpg`, `sunglasses_acetate_modern.jpg`).
+   - Mapped all 15 products so that 100% of primary shots (`images[0]`) are clean isolated frames on neutral studio backgrounds, and secondary shots (`images[1]`) are models wearing the frame.
+7. **Compact Best Sellers Rail (`src/components/home/BestSellersRail.tsx`)**:
    - Clean 4-item rail with minimal metadata (`Brand` 10px tracking, `Model Name` 14px sans, `Price` in bold BDT).
-7. **Clinical Optical Service Section (`src/components/home/OpticalServiceSection.tsx`)**:
+8. **Clinical Optical Service Section (`src/components/home/OpticalServiceSection.tsx`)**:
    - Highlighting LensCare's Dhaka optical lab with authentic photography and 3 precision pillars: Free-Form Digital Surfacing, Blue Light & Oleophobic Defense, High-Index Featherweight (1.61 to 1.74).
-8. **Editorial "Find Your Frame" Split Layout (`src/components/home/FindYourFrameSection.tsx`)**:
+9. **Editorial "Find Your Frame" Split Layout (`src/components/home/FindYourFrameSection.tsx`)**:
    - Large portrait lifestyle photograph paired with an optical proportion fit guide: 01 Silhouette & Facial Contour, 02 Bridge & Temple Calibration, 03 Lens Width to Eye Centering.
-9. **Photography-Led Sunglasses Campaign (`src/components/home/SunglassesCampaignSection.tsx`)**:
-   - Summer 2026 campaign banner (*"Sunlight looks better through the right lens."*) with dark gradient overlay, followed by a curated 4-item sunglasses rail.
-10. **Minimal Brand Wordmark Wall (`src/components/home/BrandsSection.tsx`)**:
+10. **Photography-Led Sunglasses Campaign (`src/components/home/SunglassesCampaignSection.tsx`)**:
+    - Summer 2026 campaign banner (*"Sunlight looks better through the right lens."*) with dark gradient overlay, followed by a curated 4-item sunglasses rail.
+11. **Minimal Brand Wordmark Wall (`src/components/home/BrandsSection.tsx`)**:
     - Clean editorial wordmark grid with country origins (Japan, Italy, Germany, South Korea, France) and delicate horizontal divider lines.
-11. **Streamlined Editorial Header & Navigation (`src/components/layout/Header.tsx`)**:
+12. **Streamlined Editorial Header & Navigation (`src/components/layout/Header.tsx`)**:
     - Streamlined height to 64px, serif brand mark `LENSCARE`, visual 3-column mega-menus with silhouettes and lab guarantees, and clean action icons.
-12. **Mobile Responsive Polish**:
+13. **Tailwind Refactor of All Modals & Footer (`src/components/product/QuickViewModal.tsx` & `Footer.tsx`)**:
+    - Eliminated inline `style={{...}}` blocks across `QuickViewModal` and `Footer`, moving 100% to Tailwind utility classes.
+14. **Mobile Responsive Polish**:
     - Tested at 390x844 mobile viewport: clean 2-column product grid, compact header, no overflow or horizontal scrolling.
 
 ## Files Created
@@ -49,6 +54,11 @@ COMPLETED
 - `public/images/editorial/sunglasses_campaign.jpg`
 - `public/images/editorial/fit_guide_model.jpg`
 - `public/images/editorial/optical_lab_craft.jpg`
+- `public/images/products/glasses_tortoise_square.jpg`
+- `public/images/products/sunglasses_acetate_modern.jpg`
+- `public/images/products/sunglasses_aviator_gold.jpg`
+- `public/images/products/sunglasses_black_luxury.jpg`
+- `public/images/products/sunglasses_round_retro.jpg`
 
 ## Files Modified
 - `src/app/globals.css` (Added Cormorant Garamond & Plus Jakarta Sans Google Fonts, typography utilities, and color system)
@@ -58,8 +68,10 @@ COMPLETED
 - `src/components/home/FindYourFrameSection.tsx` (Rebuilt as editorial split layout with lifestyle model)
 - `src/components/home/BrandsSection.tsx` (Rebuilt as minimal wordmark wall with country tags and fine dividers)
 - `src/components/layout/Header.tsx` (Streamlined height to 64px, refined mega-menus and typography)
-- `src/components/layout/Footer.tsx` (Refined logo typography to match new font-serif brand mark)
+- `src/components/layout/Footer.tsx` (Refactored to 100% Tailwind utility classes)
 - `src/components/product/ProductCard.tsx` (Borderless, photography-first card with slide-up Add to Bag and hover crossfade)
+- `src/components/product/QuickViewModal.tsx` (Refactored to 100% Tailwind utility classes)
+- `src/lib/data/mockData.ts` (100% isolated primary frame photography mapping)
 - `docs/AGENT_HANDOFF.md` (Updated handoff documentation)
 
 ## Database Changes
@@ -72,7 +84,7 @@ COMPLETED
 - Strictly adhered to **Rule 31** (Anti-Generic / Anti-AI Design Rule).
 - Color discipline: 90% warm ivory/white, deep navy typography, and jewelry-like champagne gold accents.
 - Zero fake reviews, zero SaaS statistics counters, zero generic cards with borders.
-- Localized editorial image caching in `public/images/editorial/` to eliminate external CDN drift.
+- Localized editorial image caching in `public/images/editorial/` and `public/images/products/` to eliminate external CDN drift.
 
 ## Known Issues
 - None.
@@ -83,6 +95,6 @@ The complete homepage visual redesign is complete and verified across desktop an
 ## Verification
 - Lint: PASS (`npm run lint` exited with code 0, 0 errors, 0 warnings)
 - Typecheck: PASS (`npx tsc --noEmit` exited with code 0)
-- Build: PASS (`npm run build` compiled 55 static/SSG pages successfully in 1.59s)
-- Desktop: PASS (Verified in browser subagent at 1440x900)
+- Build: PASS (`npm run build` compiled 55 static/SSG pages successfully in 1.51s)
+- Desktop: PASS (Verified in browser subagent at 1536x826)
 - Mobile: PASS (Verified in browser subagent at 390x844)
